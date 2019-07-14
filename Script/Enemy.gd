@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed = 100
+export var speed = 210
 onready var raycast = $RayCast2D
 #instancia do player, começando como null
 var player = null
