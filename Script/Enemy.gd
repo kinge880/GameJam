@@ -11,6 +11,7 @@ var player_is_visible = false
 #se o que esta dentro de qualquer uma das outras áreas é um player ou não
 var is_player = false
 var enemy_position
+signal kill
 
 func _ready():
 	add_to_group("enemy")
@@ -35,7 +36,7 @@ func _process(delta):
 		var to_origin = enemy_position - global_position
 		to_origin = to_origin.normalized()
 		global_rotation = atan2(to_origin.y, to_origin.x)
-		move_and_slide(to_origin * speed * delta)
+		move_and_collide(to_origin * speed * delta)
 	
 	#se rayCast colidir ativa a função death do player
 	if raycast.is_colliding():
@@ -44,7 +45,7 @@ func _process(delta):
 			collision._death()
 
 func _kill():
-	queue_free()
+	emit_signal("kill")
 
 #essa função permite mudar a variavel player, pegando a instancia de player
 func _set_player(body):

@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Novo Projeto de Jogo"
+config/name="GameJaaj"
 run/main_scene="res://Word.tscn"
 config/icon="res://icon.png"
 
