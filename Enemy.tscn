@@ -5,11 +5,11 @@
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 194.259
+radius = 690.501
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 144.703, 77.05, 0, 0, 0, 0, 125.703, -120.55, 0, 0, 0, 0, -54.7969, -165.2, 0, 0, 0, 0, -168.797, -9.40001, 0, 0, 0, 0, -48.1469, 168.25, 0, 0, 0, 0, 144.703, 77.05 )
+"points": PoolVector2Array( 2.2752, 30.7152, -2.2752, -30.7152, 132.946, -96.384, 62.5679, 3.41279, -62.5679, -3.41279, 74.36, -145.573, 57.4487, 0, -57.4487, 0, -81.4909, -151.83, 0, 0, 0, 0, -132.114, -104.619, 3.21964, -51.0846, -3.21964, 51.0846, -136.664, 108.913, 0, 0, 0, 0, -81.4909, 148.729, -76.4494, 2.94036, 76.4494, -2.94036, 89.1488, 145.885, 0, 0, 0, 0, 144.703, 77.05, 0, 0, 0, 0, 132.946, -96.384 )
 }
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -34,8 +34,8 @@ shape = SubResource( 1 )
 curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 144.703, 77.05 )
-rotation = -1.66666
+position = Vector2( 132.946, -96.384 )
+rotation = -1.63473
 
 [node name="Enemy" type="KinematicBody2D" parent="Path2D/PathFollow2D"]
 position = Vector2( -0.407059, -0.603361 )
@@ -64,8 +64,6 @@ editor/display_folded = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Path2D/PathFollow2D/Enemy/Visibility"]
 shape = SubResource( 4 )
-
-[node name="Navigation2D" type="Navigation2D" parent="Path2D/PathFollow2D/Enemy"]
 [connection signal="body_entered" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_entered"]
 [connection signal="body_exited" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_exited"]
 [connection signal="kill" from="Path2D/PathFollow2D/Enemy" to="." method="_on_Enemy_kill"]
