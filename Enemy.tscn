@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Script/EnemyNode.gd" type="Script" id=1]
 [ext_resource path="res://Script/Enemy.gd" type="Script" id=2]
@@ -6,6 +6,11 @@
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 194.259
+
+[sub_resource type="Curve2D" id=4]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 144.703, 77.05, 0, 0, 0, 0, 125.703, -120.55, 0, 0, 0, 0, -54.7969, -165.2, 0, 0, 0, 0, -168.797, -9.40001, 0, 0, 0, 0, -48.1469, 168.25, 0, 0, 0, 0, 144.703, 77.05 )
+}
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 23.7958, 23.698 )
@@ -24,36 +29,46 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaMove"]
 shape = SubResource( 1 )
 
-[node name="Enemy" type="KinematicBody2D" parent="."]
-position = Vector2( -2.63556, 1.27759 )
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 4 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 144.703, 77.05 )
+rotation = -1.66665
+
+[node name="Enemy" type="KinematicBody2D" parent="Path2D/PathFollow2D"]
+position = Vector2( -0.407059, -0.603361 )
+rotation = -0.471359
+scale = Vector2( 1, 1 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="RayCast2D" type="RayCast2D" parent="Enemy"]
+[node name="RayCast2D" type="RayCast2D" parent="Path2D/PathFollow2D/Enemy"]
 position = Vector2( 0.810486, -0.151764 )
 enabled = true
 cast_to = Vector2( 30, 0 )
 
-[node name="Sprite" type="Sprite" parent="Enemy"]
+[node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D/Enemy"]
 modulate = Color( 1, 0.996078, 0.996078, 1 )
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Enemy"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Path2D/PathFollow2D/Enemy"]
 visible = false
 position = Vector2( -0.0983276, 0.155396 )
 shape = SubResource( 2 )
 
-[node name="Visibility" type="Area2D" parent="Enemy"]
+[node name="Visibility" type="Area2D" parent="Path2D/PathFollow2D/Enemy"]
+editor/display_folded = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Enemy/Visibility"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Path2D/PathFollow2D/Enemy/Visibility"]
 shape = SubResource( 3 )
 
-[node name="Navigation2D" type="Navigation2D" parent="Enemy"]
-[connection signal="body_entered" from="AreaMove" to="Enemy" method="_on_AreaMove_body_entered"]
-[connection signal="body_exited" from="AreaMove" to="Enemy" method="_on_AreaMove_body_exited"]
-[connection signal="kill" from="Enemy" to="." method="_on_Enemy_kill"]
-[connection signal="body_entered" from="Enemy/Visibility" to="Enemy" method="_on_Visibility_body_entered"]
-[connection signal="body_exited" from="Enemy/Visibility" to="Enemy" method="_on_Visibility_body_exited"]
+[node name="Navigation2D" type="Navigation2D" parent="Path2D/PathFollow2D/Enemy"]
+[connection signal="body_entered" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_entered"]
+[connection signal="body_exited" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_exited"]
+[connection signal="kill" from="Path2D/PathFollow2D/Enemy" to="." method="_on_Enemy_kill"]
+[connection signal="body_entered" from="Path2D/PathFollow2D/Enemy/Visibility" to="Path2D/PathFollow2D/Enemy" method="_on_Visibility_body_entered"]
+[connection signal="body_exited" from="Path2D/PathFollow2D/Enemy/Visibility" to="Path2D/PathFollow2D/Enemy" method="_on_Visibility_body_exited"]
