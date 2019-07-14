@@ -4,8 +4,8 @@ export var speed = 200
 var motion = Vector2()
 onready var raycast = $RayCast2D
 
-export var acc = 0.05
-export var dec = 0.02
+export var acc = 0.1
+export var dec = 0.05
 
 func _ready():
 	yield(get_tree(), "idle_frame")
