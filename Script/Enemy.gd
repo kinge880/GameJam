@@ -12,6 +12,7 @@ var player_is_visible = false
 var is_player = false
 var enemy_original_position
 var enemy_position
+var enemy_position_after_folow
 signal kill
 onready var path = get_node("../")
 var state = 2
@@ -37,7 +38,7 @@ func _process(delta):
 		#provavelmente irei mudar depois, aqui é para direcionar ray cast do enemy na direção do player, mas irei mudar quando adicionar os psirtes
 		global_rotation = atan2(to_player.y, to_player.x)
 		move_and_collide(to_player * speed * delta)
-	
+		
 	if state == 1:
 		#igual ao anterior só que pegando a posição inicial do enemy
 		var to_origin = enemy_position - global_position
@@ -45,7 +46,9 @@ func _process(delta):
 		global_rotation = atan2(to_origin.y, to_origin.x)
 		move_and_collide(to_origin * speed * delta)
 		#arrumando
-		if global_position == enemy_position:
+		print(to_origin)
+		print(enemy_position.normalized() * speed * delta)
+		if to_origin == to_origin:
 			state = 2
 	
 	elif state == 2:
