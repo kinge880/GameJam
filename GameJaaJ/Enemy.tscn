@@ -1,27 +1,52 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Script/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=4]
+radius = 194.259
+
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 23.7958, 23.698 )
 
-[node name="Enemy" type="KinematicBody2D"]
-position = Vector2( 634.497, 352.799 )
+[sub_resource type="CircleShape2D" id=2]
+radius = 114.749
+
+[node name="Enemy" type="Node2D"]
+
+[node name="AreaMove" type="Area2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaMove"]
+shape = SubResource( 4 )
+
+[node name="Enemy" type="KinematicBody2D" parent="."]
+position = Vector2( -2.63556, 1.27759 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="Enemy"]
 position = Vector2( 0.810486, -0.151764 )
 enabled = true
 cast_to = Vector2( 30, 0 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="Enemy"]
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Enemy"]
 position = Vector2( -0.0983276, 0.155396 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
+
+[node name="Visibility" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Enemy/Visibility"]
+shape = SubResource( 2 )
+[connection signal="body_entered" from="AreaMove" to="Enemy" method="_on_AreaMove_body_entered"]
+[connection signal="body_exited" from="AreaMove" to="Enemy" method="_on_AreaMove_body_exited"]
+[connection signal="body_entered" from="Enemy/Visibility" to="Enemy" method="_on_Visibility_body_entered"]
+[connection signal="body_exited" from="Enemy/Visibility" to="Enemy" method="_on_Visibility_body_exited"]
