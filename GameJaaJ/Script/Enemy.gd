@@ -7,7 +7,7 @@ var player = null
 func _ready():
 	add_to_group("enemy")
 	
-func _physics_process(delta):
+func _process(delta):
 	if player == null:
 		return
 		
