@@ -11,7 +11,7 @@ func _ready():
 func _process(delta):
 	motion = Vector2()
 	look_at(get_global_mouse_position())
-	var look_mouse = get_global_mouse_position() - global_position
+	#var look_mouse = get_global_mouse_position() - global_position
 	
 	#Movimentos basicos
 	#movimentação de teste 1
