@@ -14,7 +14,7 @@ var enemy_original_position
 var enemy_position
 signal kill
 onready var path = get_node("../")
-var state
+var state = 2
 
 func _ready():
 	add_to_group("enemy")
