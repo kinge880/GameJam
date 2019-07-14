@@ -10,12 +10,18 @@ var player_inside_area = false
 var player_is_visible = false
 #se o que esta dentro de qualquer uma das outras áreas é um player ou não
 var is_player = false
+var enemy_original_position
 var enemy_position
 signal kill
+onready var path = get_node("../")
+var state = 2
 
 func _ready():
 	add_to_group("enemy")
-	enemy_position = global_position
+	enemy_original_position = global_position
+	
+func control(delta):
+	pass
 	
 func _process(delta):
 	#evitar problemas
@@ -31,13 +37,20 @@ func _process(delta):
 		#provavelmente irei mudar depois, aqui é para direcionar ray cast do enemy na direção do player, mas irei mudar quando adicionar os psirtes
 		global_rotation = atan2(to_player.y, to_player.x)
 		move_and_collide(to_player * speed * delta)
-	else:
+	
+	if state == 1:
 		#igual ao anterior só que pegando a posição inicial do enemy
 		var to_origin = enemy_position - global_position
 		to_origin = to_origin.normalized()
 		global_rotation = atan2(to_origin.y, to_origin.x)
 		move_and_collide(to_origin * speed * delta)
+		#arrumando
+		if global_position == enemy_position:
+			state = 2
 	
+	elif state == 2:
+		path.offset +=  speed * delta
+		
 	#se rayCast colidir ativa a função death do player
 	if raycast.is_colliding():
 		var collision = raycast.get_collider()
@@ -62,12 +75,15 @@ func _on_AreaMove_body_exited(body):
 
 func _on_Visibility_body_entered(body):
 	if body.name == "Player":
+		enemy_position = global_position
 		$Sprite.self_modulate = Color(1, 0, 0)
 		player_is_visible = true
 		is_player = true
+		state = 0
 
 func _on_Visibility_body_exited(body):
 	if body.name == "Player":
 		$Sprite.self_modulate = Color(1, 1, 1)
 		player_is_visible = false
 		is_player = false
+		state = 1

@@ -50,13 +50,3 @@ func _process(delta):
 #função para ativar a situação escolhida de "morte"
 func _death():
 	get_tree().reload_current_scene()
-
-#talvez iremos usar no futuro, essa função vai manter a camera fixa nos limites de um comodo
-func set_camera_limits():
-	#essa conexão vai ter que mduar dps
-    var map_limits = $TileMap.get_used_rect()
-    var map_cellsize = $TileMap.cell_size
-    $Player/Camera2D.limit_left = map_limits.position.x * map_cellsize.x
-    $Player/Camera2D.limit_right = map_limits.end.x * map_cellsize.x
-    $Player/Camera2D.limit_top = map_limits.position.y * map_cellsize.y
-    $Player/Camera2D.limit_bottom = map_limits.end.y * map_cellsize.y
