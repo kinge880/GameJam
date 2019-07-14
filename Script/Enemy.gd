@@ -16,7 +16,7 @@ func _ready():
 	add_to_group("enemy")
 	enemy_position = global_position
 	
-func _physics_process(delta):
+func _process(delta):
 	#evitar problemas
 	if player == null:
 		return
