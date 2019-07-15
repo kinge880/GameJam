@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 export var speed = 50
+export var max_speed = 200
+var chase_speed = 0
 onready var raycast = $RayCast2D
 #instancia do player, começando como null
 var player = null
@@ -19,8 +21,8 @@ var state = 2
 var motion = Vector2()
 var is_original_position = true
 
-export var acc = 0.1
-export var dec = 0.05
+onready var tween = get_node("Tween")
+var stop_counter = 1
 
 func _ready():
 	add_to_group("enemy")
@@ -36,14 +38,22 @@ func _process(delta):
 	
 	#se o player estiver dentro das duas áreas circulares, ativar
 	if player_inside_area and player_is_visible and is_player:
+		stop_counter -= delta
 		#vetor 2 que recebe  a posição do player - posição do enemy 
 		var to_player = player.global_position - global_position
 		#evitar movimento duplo com o dobro da velocidade
 		to_player = to_player.normalized()
 		#provavelmente irei mudar depois, aqui é para direcionar ray cast do enemy na direção do player, mas irei mudar quando adicionar os psirtes
 		global_rotation = atan2(to_player.y, to_player.x)
-		move_and_collide(to_player * (speed*2) * delta)
-		is_original_position = false
+		if stop_counter <= 0:
+			#tween.stop_all()
+			if !tween.is_active():
+				tween.interpolate_property($".", "chase_speed", null, max_speed, 2, Tween.TRANS_EXPO, Tween.EASE_IN)
+				tween.start()
+			move_and_collide(to_player * chase_speed * delta)
+			is_original_position = false
+	else:
+		stop_counter = 1
 	if state == 1:
 		#igual ao anterior só que pegando a posição inicial do enemy
 		var to_origin = enemy_position - global_position

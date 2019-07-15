@@ -231,8 +231,6 @@ tile_data = PoolIntArray( -327693, 2, 65536, -327692, 2, 65536, -327691, 2, 6553
 position = Vector2( 396.752, 245.946 )
 
 [node name="EnemyNode" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
-visible = false
 position = Vector2( 678.667, 293.14 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]

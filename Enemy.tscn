@@ -16,7 +16,7 @@ _data = {
 extents = Vector2( 23.7958, 23.698 )
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 114.749
+radius = 200.0
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource( 1 )
@@ -60,10 +60,11 @@ position = Vector2( -0.0983276, 0.155396 )
 shape = SubResource( 3 )
 
 [node name="Visibility" type="Area2D" parent="Path2D/PathFollow2D/Enemy"]
-editor/display_folded = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Path2D/PathFollow2D/Enemy/Visibility"]
 shape = SubResource( 4 )
+
+[node name="Tween" type="Tween" parent="Path2D/PathFollow2D/Enemy"]
 [connection signal="body_entered" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_entered"]
 [connection signal="body_exited" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_exited"]
 [connection signal="kill" from="Path2D/PathFollow2D/Enemy" to="." method="_on_Enemy_kill"]
