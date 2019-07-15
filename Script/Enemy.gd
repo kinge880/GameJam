@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed = 210
+export var speed = 50
 onready var raycast = $RayCast2D
 #instancia do player, começando como null
 var player = null
@@ -12,9 +12,12 @@ var player_is_visible = false
 var is_player = false
 var enemy_original_position
 var enemy_position
+var enemy_position_after_folow
 signal kill
 onready var path = get_node("../")
 var state = 2
+var motion = Vector2()
+var is_original_position = true
 
 export var acc = 0.1
 export var dec = 0.05
@@ -39,18 +42,18 @@ func _process(delta):
 		to_player = to_player.normalized()
 		#provavelmente irei mudar depois, aqui é para direcionar ray cast do enemy na direção do player, mas irei mudar quando adicionar os psirtes
 		global_rotation = atan2(to_player.y, to_player.x)
-		move_and_collide(to_player * speed * delta)
-	
+		move_and_collide(to_player * (speed*2) * delta)
+		is_original_position = false
 	if state == 1:
 		#igual ao anterior só que pegando a posição inicial do enemy
 		var to_origin = enemy_position - global_position
 		to_origin = to_origin.normalized()
 		global_rotation = atan2(to_origin.y, to_origin.x)
 		move_and_collide(to_origin * speed * delta)
-		#arrumando
-		if global_position == enemy_position:
+		#solução parcial, vou melhorar isso ainda
+		if int(global_position.x)  == int(enemy_position.x) and int(global_position.y)  == int(enemy_position.y):
 			state = 2
-	
+			is_original_position = true
 	elif state == 2:
 		path.offset +=  speed * delta
 		
@@ -78,7 +81,8 @@ func _on_AreaMove_body_exited(body):
 
 func _on_Visibility_body_entered(body):
 	if body.name == "Player":
-		enemy_position = global_position
+		if is_original_position:
+			enemy_position = global_position
 		$Sprite.self_modulate = Color(1, 0, 0)
 		player_is_visible = true
 		is_player = true
