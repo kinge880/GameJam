@@ -16,7 +16,7 @@ func _ready():
 	
 func _process(delta):
 	var movedir = Vector2()
-	#look_at(get_global_mouse_position())
+	look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed("ui_down"):
 		movedir += Vector2(0, 1)

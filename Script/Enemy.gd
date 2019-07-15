@@ -17,7 +17,6 @@ var is_player = false
 var enemy_original_position
 var enemy_position
 var enemy_position_after_folow
-signal kill
 onready var path = get_node("../")
 onready var navigation = get_node("../../../../Navigation2D")
 var state = 2
@@ -71,6 +70,7 @@ func _process(delta):
 			is_original_position = false
 	else:
 		stop_counter = 1
+	
 	if state == 1:
 		#igual ao anterior só que pegando a posição inicial do enemy
 		var to_origin = enemy_position - global_position
@@ -93,7 +93,7 @@ func _process(delta):
 			collision._death()
 
 func _kill():
-	emit_signal("kill")
+	queue_free()
 
 #essa função permite mudar a variavel player, pegando a instancia de player
 func _set_player(body):
