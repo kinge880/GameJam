@@ -211,7 +211,7 @@ func _ready():
 func _draw():
 	if path.size():
 		for i in range(path.size()):
-			draw_string(font, Vector2(path[i].x, path[i].y -20), str(i+1))
+			print(Vector2(path[i].x, path[i].y -20))
 			draw_circle(path[i], 10, Color(1,1,1))
 #inserido para verificar o caminho com base no click do mouse (para facilitar o teste), agora só falta editar isso para o player
 func _input(Event):
@@ -220,9 +220,9 @@ func _input(Event):
 		update()"
 
 [sub_resource type="NavigationPolygon" id=19]
-vertices = PoolVector2Array( 510.95, 223.939, 510.95, 190.859, 1021.97, 64.3426, 1021.97, 511.989, 63.8304, 64.4493, 325.108, 155.164, 326.504, 415.644, 322.314, 420.533, 382.308, 224.674, 383.778, 189.389, 65.7402, 510.881, 283.207, 421.231, 281.112, 161.449, 283.207, 153.767 )
+vertices = PoolVector2Array( 513.431, 226.432, 513.431, 189.451, 1021.97, 64.3426, 1021.97, 511.989, 63.8304, 64.4493, 325.108, 155.164, 326.504, 415.644, 322.314, 420.533, 382.111, 226.432, 380.979, 189.074, 65.7402, 510.881, 283.207, 421.231, 281.112, 161.449, 283.207, 153.767 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 2, 1, 5 ), PoolIntArray( 6, 0, 3, 7 ), PoolIntArray( 8, 0, 6 ), PoolIntArray( 8, 6, 5, 9 ), PoolIntArray( 7, 3, 10, 11 ), PoolIntArray( 11, 10, 4, 12 ), PoolIntArray( 13, 12, 4 ), PoolIntArray( 1, 9, 5 ), PoolIntArray( 4, 5, 13 ) ]
-outlines = [ PoolVector2Array( 63.8304, 64.4493, 65.7402, 510.881, 1021.97, 511.989, 1021.97, 64.3426 ), PoolVector2Array( 283.207, 153.767, 325.108, 155.164, 326.504, 415.644, 322.314, 420.533, 283.207, 421.231, 281.112, 161.449 ), PoolVector2Array( 383.778, 189.389, 510.95, 190.859, 510.95, 223.939, 382.308, 224.674 ) ]
+outlines = [ PoolVector2Array( 63.8304, 64.4493, 65.7402, 510.881, 1021.97, 511.989, 1021.97, 64.3426 ), PoolVector2Array( 283.207, 153.767, 325.108, 155.164, 326.504, 415.644, 322.314, 420.533, 283.207, 421.231, 281.112, 161.449 ), PoolVector2Array( 380.979, 189.074, 513.431, 189.451, 513.431, 226.432, 382.111, 226.432 ) ]
 
 [node name="Map" type="Node"]
 
@@ -236,7 +236,6 @@ tile_data = PoolIntArray( -327693, 2, 65536, -327692, 2, 65536, -327691, 2, 6553
 position = Vector2( 396.752, 245.946 )
 
 [node name="EnemyNode" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 position = Vector2( 805.667, 290.14 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
@@ -244,5 +243,3 @@ script = SubResource( 18 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 19 )
-
-[editable path="EnemyNode"]

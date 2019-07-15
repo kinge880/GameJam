@@ -4,7 +4,7 @@ export var speed = 200
 var motion = Vector2()
 onready var raycast = $RayCast2D
 
-export var acc = 0.1
+export var acc = 0.5
 export var dec = 0.05
 
 func _ready():
@@ -13,13 +13,9 @@ func _ready():
 	get_tree().call_group("enemy", "_set_player", self)
 	
 func _process(delta):
-	#motion = Vector2()
 	var movedir = Vector2()
 	look_at(get_global_mouse_position())
-	#var look_mouse = get_global_mouse_position() - global_position
 	
-	#Movimentos basicos, fiz 3 deles pq to na duvida de qual fica melhor, escolhemos dps
-	#movimentação de teste 1
 	if Input.is_action_pressed("ui_down"):
 		movedir += Vector2(0, 1)
 	if Input.is_action_pressed("ui_up"):
@@ -30,20 +26,15 @@ func _process(delta):
 		movedir += Vector2(1, 0)
 	
 	if movedir != Vector2():
-		motion = motion.linear_interpolate(movedir, acc)
+		motion = motion.linear_interpolate(movedir.normalized(), acc)
 	else:
 		motion = motion.linear_interpolate(Vector2(), dec)
-
-	#motion = motion.normalized() * speed
 	
-	#move_and_collide(motion * delta * speed)
 	move_and_slide(motion * speed)
-	#position += motion * delta * speed
-		
+	
 	#atacar, podemos modificar aqui pra fazer do jeito que preferimos, deixei assim de inicio pra ter uma base
 	if Input.is_action_pressed("atk"):
 		var collision = raycast.get_collider()
-		print(collision)
 		if raycast.is_colliding() and collision.has_method("_kill"):
 			collision._kill()
 
