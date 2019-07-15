@@ -40,6 +40,7 @@ func _physics_process(delta):
 	
 	#se o player estiver dentro das duas áreas circulares, ativar
 	if player_inside_area and player_is_visible and is_player:
+
 		#verificar para definir um lance na função la de baixo
 		is_original_position = false
 		#recebo o navigation2D pegando a posição do player e a posição do enemy
