@@ -1,13 +1,13 @@
 extends KinematicBody2D
 
 export var speed = 50
-export var max_speed = 200
+export var max_speed = 180
 var chase_speed = 0
 onready var raycast = $RayCast2D
 #instancia do player, começando como null
 var player = null
 #se o player ta dentro ou não da area limite de movimentos do enemy
-var player_inside_area = false
+var player_inside_area = true
 #se o player entrou ou não na area de visão do enemy
 var player_is_visible = false
 #se o que esta dentro de qualquer uma das outras áreas é um player ou não
@@ -33,17 +33,17 @@ func _ready():
 func control(delta):
 	pass
 	
-func _physics_process(delta):
+func _process(delta):
 	#evitar problemas
 	if player == null:
 		return
 	
 	#se o player estiver dentro das duas áreas circulares, ativar
 	if player_inside_area and player_is_visible and is_player:
-
 		#verificar para definir um lance na função la de baixo
 		is_original_position = false
 		#recebo o navigation2D pegando a posição do player e a posição do enemy
+		
 		path_navigation = navigation.get_simple_path(global_position, player.global_position)
 		#update()
 		#a posição [0] seria a posição atual do enemy, a posição [1] deveria ser uma posição atualizada com base no melhor caminho
@@ -59,13 +59,12 @@ func _physics_process(delta):
 		#provavelmente irei mudar depois, aqui é para direcionar ray cast do enemy na direção do player, mas irei mudar quando adicionar os psirtes
 		global_rotation = atan2(to_player.y, to_player.x)
 		#faz o movimento
-		move_and_collide(to_player * (speed*2) * delta)
 		if stop_counter <= 0:
 			#tween.stop_all()
 			if !tween.is_active():
 				tween.interpolate_property($".", "chase_speed", null, max_speed, 2, Tween.TRANS_EXPO, Tween.EASE_IN)
 				tween.start()
-			move_and_collide(to_player * chase_speed * delta)
+			move_and_slide(to_player * chase_speed)
 			is_original_position = false
 	else:
 		stop_counter = 1
@@ -80,6 +79,7 @@ func _physics_process(delta):
 			state = 2
 			is_original_position = true
 	elif state == 2:
+		rotation = 0
 		path.offset +=  speed * delta
 		
 	#se rayCast colidir ativa a função death do player

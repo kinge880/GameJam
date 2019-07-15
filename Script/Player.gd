@@ -5,7 +5,7 @@ var motion = Vector2()
 onready var raycast = $RayCast2D
 
 export var acc = 0.5
-export var dec = 0.05
+export var dec = 0.1
 
 func _ready():
 	yield(get_tree(), "idle_frame")
@@ -14,7 +14,7 @@ func _ready():
 	
 func _process(delta):
 	var movedir = Vector2()
-	look_at(get_global_mouse_position())
+	#look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed("ui_down"):
 		movedir += Vector2(0, 1)
@@ -27,8 +27,11 @@ func _process(delta):
 	
 	if movedir != Vector2():
 		motion = motion.linear_interpolate(movedir.normalized(), acc)
+		rotation = lerp_angle(rotation, motion.angle(), dec)
 	else:
 		motion = motion.linear_interpolate(Vector2(), dec)
+	
+	#look_at(motion)
 	
 	move_and_slide(motion * speed)
 	
@@ -41,3 +44,11 @@ func _process(delta):
 #função para ativar a situação escolhida de "morte"
 func _death():
 	get_tree().reload_current_scene()
+
+func lerp_angle(from, to, weight):
+    return from + short_angle_dist(from, to) * weight
+
+func short_angle_dist(from, to):
+    var max_angle = PI * 2
+    var difference = fmod(to - from, max_angle)
+    return fmod(2 * difference, max_angle) - difference
