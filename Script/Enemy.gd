@@ -19,6 +19,9 @@ var state = 2
 var motion = Vector2()
 var is_original_position = true
 
+export var acc = 0.1
+export var dec = 0.05
+
 func _ready():
 	add_to_group("enemy")
 	enemy_original_position = global_position
