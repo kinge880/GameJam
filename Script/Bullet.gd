@@ -1,7 +1,7 @@
 extends Area2D
 
 export var speed = 800
-export var damage = 10
+export var damage = 1
 var velocity = Vector2()
 
 #essa função é chamada assim que a bala é instanciada
