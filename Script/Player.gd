@@ -14,7 +14,6 @@ export var current_stamina = 6
 export var max_stamina = 6
 export var stamina_cost = 3
 var motion = Vector2()
-#export (PackedScene) var Bullet
 signal shoot
 signal life_changed
 signal stamina_changed
@@ -36,11 +35,10 @@ func _ready():
 	#passa a instancia de player a todos no grupo "enemy" que possuem a função "_set_player"
 	get_tree().call_group("enemy", "_set_player", self)
 	emit_signal('life_changed', current_life * (100/max_life))
-	#$Bullet.position = Vector2(0, 40)
+	
 	for i in range(3):
 		bullets.append(Bullet.instance())
 		add_child(bullets[i])
-		#bullets[i].connect("body_entered", self, "_on_Bullet_body_entered")
 	_centre = bullets[0].position
 
 func _process(delta):
@@ -91,10 +89,12 @@ func _process(delta):
 func _dash():
 	current_stamina -= stamina_cost
 	_stamine_changed()
-	$StaminaRecoveryTime.wait_time = pos_dash_recovery_stamina_time
+	$StaminaRecoveryTime.stop()
+	$wait_stamina_time.wait_time = pos_dash_recovery_stamina_time
+	$wait_stamina_time.start()
 	$DashTimer.wait_time = dash_time
-	speed = dash_speed
 	$DashTimer.start()
+	speed = dash_speed
 	
 #função para ativar a situação escolhida de "morte"
 func _death():
@@ -151,13 +151,9 @@ func _take_damage(damage):
 		_death()
 
 func _on_StaminaRecoveryTime_timeout():
-	$StaminaRecoveryTime.wait_time = 0.5
 	if current_stamina < max_stamina:
 		current_stamina += 1
 		_stamine_changed()
 
-func _on_Bullet_body_entered(body):
-	for i in range(3):
-		pass
-	magazine -= 1
-	pass
+func _on_wait_stamina_time_timeout():
+	$StaminaRecoveryTime.start()

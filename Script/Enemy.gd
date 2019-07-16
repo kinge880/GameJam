@@ -6,9 +6,11 @@ export var speed = 50
 export var max_speed = 150
 var chase_speed = 0
 export var life = 2
+export var max_life = 2
 export var stamina = 10
+export var max_stamina = 10
 export var damage = 1
-
+signal life_changed
 onready var raycast = $RayCast2D
 #instancia do player, começando como null
 var player = null
@@ -34,6 +36,7 @@ var stop_counter = 1
 func _ready():
 	add_to_group("enemy")
 	enemy_original_position = global_position
+	emit_signal('life_changed', current_life * 100/max_life)
 	
 func control(delta):
 	pass
@@ -131,6 +134,10 @@ func _on_Visibility_body_exited(body):
 		state = 1
 #função pra tomar DANU
 func _take_damage(damage):
-	life -= damage
-	if life <=0:
+	current_life -= damage
+	_life_changed()
+	if current_life <=0:
 		_kill()
+
+func _life_changed():
+	emit_signal('life_changed', current_life * 100/max_life)

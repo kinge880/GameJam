@@ -52,6 +52,18 @@ tile_data = PoolIntArray( 196611, 4, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 318.4, 139.495 )
+speed = null
+dash_speed = null
+walk_speed = null
+dash_time = null
+pos_dash_recovery_stamina_time = null
+current_life = null
+max_life = null
+current_stamina = null
+max_stamina = null
+stamina_cost = null
+acc = null
+dec = null
 
 [node name="EnemyNode" parent="." instance=ExtResource( 4 )]
 position = Vector2( 701.862, 293.639 )
