@@ -5,6 +5,10 @@ const Util = preload("res://Script/utils.gd")
 export var speed = 50
 export var max_speed = 150
 var chase_speed = 0
+export var life = 10
+export var stamina = 10
+export var damage = 5
+
 onready var raycast = $RayCast2D
 #instancia do player, começando como null
 var player = null
@@ -92,7 +96,7 @@ func _process(delta):
 	if raycast.is_colliding():
 		var collision = raycast.get_collider()
 		if collision.name == "Player":
-			collision._death()
+			collision._take_damage(damage)
 
 func _kill():
 	queue_free()
@@ -125,3 +129,8 @@ func _on_Visibility_body_exited(body):
 		player_is_visible = false
 		is_player = false
 		state = 1
+#função pra tomar DANU
+func _take_damage(damage):
+	life -= damage
+	if life <=0:
+		_kill()

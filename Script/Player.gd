@@ -6,8 +6,13 @@ export var speed = 200
 export var dash_speed = 800
 export var walk_speed = 200
 export var dash_time = 0.2
+export var pos_dash_recovery_stamina_time = 5
+export var life = 10
+export var max_life = 10
+export var stamina = 10
+export var max_stamina = 10
+export var stamina_cost = 3
 var motion = Vector2()
-onready var raycast = $RayCast2D
 export (PackedScene) var Bullet
 signal shoot
 var can_shoot = true
@@ -23,7 +28,7 @@ func _process(delta):
 	var movedir = Vector2()
 	$weapon.look_at(get_global_mouse_position())
 	
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") and stamina > stamina_cost:
 		_dash()
 	if Input.is_action_pressed("ui_down"):
 		movedir += Vector2(0, 1)
@@ -45,12 +50,11 @@ func _process(delta):
 	#atacar, podemos modificar aqui pra fazer do jeito que preferimos, deixei assim de inicio pra ter uma base
 	if Input.is_action_pressed("atk"):
 		_shoot()
-		#var collision = raycast.get_collider()
-		#if raycast.is_colliding() and collision.has_method("_kill"):
-			#collision._kill()
+		
 func _dash():
+	stamina -= stamina_cost
+	$StaminaRecoveryTime.wait_time = pos_dash_recovery_stamina_time
 	$DashTimer.wait_time = dash_time
-	$CollisionShape2D.disabled = true
 	speed = dash_speed
 	$DashTimer.start()
 	
@@ -77,5 +81,15 @@ func _shoot():
 		emit_signal('shoot', Bullet, $weapon.global_position, dir)
 
 func _on_DashTimer_timeout():
-	$CollisionShape2D.disabled = false
 	speed = walk_speed
+
+func _take_damage(damage):
+	life -= damage
+	print(life)
+	if life <=0:
+		_death()
+
+func _on_StaminaRecoveryTime_timeout():
+	$StaminaRecoveryTime.wait_time = 0.5
+	if stamina < max_stamina:
+		stamina += 1
