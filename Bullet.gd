@@ -1,15 +1,13 @@
 extends Area2D
 
-export var speed = 750
+export var speed = 800
 export var damage = 10
-export var lifetime = 0.8
 var velocity = Vector2()
 
 #essa função é chamada assim que a bala é instanciada
 func _start(_position, _direction):
 	position = _position
 	rotation = _direction.angle()
-	$Lifetime.wait_time = lifetime
 	velocity = _direction * speed
 
 func _process(delta):

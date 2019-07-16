@@ -51,6 +51,7 @@ enabled = true
 cast_to = Vector2( 250, 0 )
 
 [node name="weapon" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0.342884, 0.214636 )
 scale = Vector2( 0.966463, 0.986585 )
 frames = SubResource( 2 )

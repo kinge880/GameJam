@@ -13,6 +13,8 @@ signal shoot
 var can_shoot = true
 export var acc = 0.5
 export var dec = 0.1
+var last_shot_time = 0
+var shoot_cd = 250
 
 func _ready():
 	yield(get_tree(), "idle_frame")
@@ -44,7 +46,10 @@ func _process(delta):
 	
 	#atacar, podemos modificar aqui pra fazer do jeito que preferimos, deixei assim de inicio pra ter uma base
 	if Input.is_action_pressed("atk"):
-		_shoot()
+		var now = OS.get_ticks_msec()
+		if now - last_shot_time > shoot_cd:
+			last_shot_time = now
+			_shoot()
 		#var collision = raycast.get_collider()
 		#if raycast.is_colliding() and collision.has_method("_kill"):
 			#collision._kill()
