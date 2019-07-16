@@ -7,7 +7,7 @@ onready var raycast = $RayCast2D
 #instancia do player, começando como null
 var player = null
 #se o player ta dentro ou não da area limite de movimentos do enemy
-var player_inside_area = true
+var player_inside_area = false
 #se o player entrou ou não na area de visão do enemy
 var player_is_visible = false
 #se o que esta dentro de qualquer uma das outras áreas é um player ou não
@@ -44,7 +44,7 @@ func _process(delta):
 		#recebo o navigation2D pegando a posição do player e a posição do enemy
 		
 		path_navigation = navigation.get_simple_path(global_position, player.global_position)
-		#update()
+		update()
 		#a posição [0] seria a posição atual do enemy, a posição [1] deveria ser uma posição atualizada com base no melhor caminho
 		var nextPos = path_navigation[1]
 		#vetor 2 que recebe  a posição do path[1] - do enemy
@@ -69,11 +69,13 @@ func _process(delta):
 		stop_counter = 1
 	
 	if state == 1:
+		path_navigation = navigation.get_simple_path(global_position, enemy_position)
+		var nextPos = path_navigation[1]
 		#igual ao anterior só que pegando a posição inicial do enemy
-		var to_origin = enemy_position - global_position
+		var to_origin = nextPos - global_position
 		to_origin = to_origin.normalized()
 		global_rotation = atan2(to_origin.y, to_origin.x)
-		move_and_collide(to_origin * speed * delta)
+		move_and_slide(to_origin * speed * delta)
 		#solução parcial, vou melhorar isso ainda
 		if int(global_position.x)  == int(enemy_position.x) and int(global_position.y)  == int(enemy_position.y):
 			state = 2

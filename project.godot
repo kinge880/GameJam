@@ -66,6 +66,7 @@ atk={
 2d_physics/layer_1="enviroments"
 2d_physics/layer_2="player"
 2d_physics/layer_3="enemys"
+2d_physics/layer_4="bullets"
 
 [rendering]
 

@@ -13,7 +13,8 @@ _data = {
 [node name="Enemy" type="Node2D"]
 
 [node name="AreaMove" type="Area2D" parent="."]
-collision_mask = 2
+collision_layer = 0
+collision_mask = 6
 __meta__ = {
 "_edit_group_": true
 }
@@ -29,3 +30,5 @@ position = Vector2( 132.946, -96.384 )
 rotation = -1.63473
 
 [node name="Enemy" parent="Path2D/PathFollow2D" instance=ExtResource( 1 )]
+[connection signal="body_entered" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_entered"]
+[connection signal="body_exited" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_exited"]
