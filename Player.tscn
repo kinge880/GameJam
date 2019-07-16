@@ -29,7 +29,7 @@ collision_mask = 5
 script = ExtResource( 1 )
 Bullet = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -57,3 +57,8 @@ frames = SubResource( 2 )
 animation = "idle"
 frame = 3
 flip_h = true
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+[connection signal="timeout" from="DashTimer" to="." method="_on_Timer_timeout"]
