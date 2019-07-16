@@ -1,7 +1,9 @@
 extends KinematicBody2D
 
+const Util = preload("res://Script/utils.gd")
+
 export var speed = 50
-export var max_speed = 180
+export var max_speed = 150
 var chase_speed = 0
 onready var raycast = $RayCast2D
 #instancia do player, começando como null
@@ -14,11 +16,11 @@ var player_is_visible = false
 var is_player = false
 var enemy_original_position
 var enemy_position
-var enemy_position_after_folow
+#var enemy_position_after_folow
 onready var path = get_node("../")
 onready var navigation = get_node("../../../../Navigation2D")
 var state = 2
-var motion = Vector2()
+#var motion = Vector2()
 var is_original_position = true
 var path_navigation = []
 
@@ -56,10 +58,11 @@ func _process(delta):
 		#evitar movimento duplo com o dobro da velocidade
 		to_player = to_player.normalized()
 		#provavelmente irei mudar depois, aqui é para direcionar ray cast do enemy na direção do player, mas irei mudar quando adicionar os psirtes
-		global_rotation = atan2(to_player.y, to_player.x)
-		#faz o movimento
+		global_rotation = Util.lerp_angle(global_rotation, atan2(to_player.y, to_player.x), 0.1)
+		#rotation = Util.lerp_angle(rotation, to_player.angle(), 0.1)
+		#faz o movimentos
 		if stop_counter <= 0:
-			#tween.stop_all()
+			#tween.stop_all()ss
 			if !tween.is_active():
 				tween.interpolate_property($".", "chase_speed", null, max_speed, 2, Tween.TRANS_EXPO, Tween.EASE_IN)
 				tween.start()
@@ -74,8 +77,9 @@ func _process(delta):
 		#igual ao anterior só que pegando a posição inicial do enemy
 		var to_origin = nextPos - global_position
 		to_origin = to_origin.normalized()
-		global_rotation = atan2(to_origin.y, to_origin.x)
-		move_and_slide(to_origin * speed * delta)
+		#global_rotation = atan2(to_origin.y, to_origin.x)
+		global_rotation = Util.lerp_angle(global_rotation, atan2(to_origin.y, to_origin.x), 0.1)
+		move_and_slide(to_origin * speed)
 		#solução parcial, vou melhorar isso ainda
 		if int(global_position.x)  == int(enemy_position.x) and int(global_position.y)  == int(enemy_position.y):
 			state = 2

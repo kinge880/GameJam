@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const Util = preload("res://Script/utils.gd")
+
 export var speed = 200
 var motion = Vector2()
 onready var raycast = $RayCast2D
@@ -16,7 +18,6 @@ func _ready():
 	
 func _process(delta):
 	var movedir = Vector2()
-	#look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed("ui_down"):
 		movedir += Vector2(0, 1)
@@ -29,11 +30,9 @@ func _process(delta):
 	
 	if movedir != Vector2():
 		motion = motion.linear_interpolate(movedir.normalized(), acc)
-		rotation = lerp_angle(rotation, motion.angle(), dec)
+		rotation = Util.lerp_angle(rotation, motion.angle(), 0.1)
 	else:
 		motion = motion.linear_interpolate(Vector2(), dec)
-	
-	#look_at(motion)
 	
 	move_and_slide(motion * speed)
 	
