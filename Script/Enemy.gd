@@ -3,7 +3,7 @@ extends KinematicBody2D
 const Util = preload("res://Script/utils.gd")
 
 export var speed = 50
-export var max_speed = 180
+export var max_speed = 150
 var chase_speed = 0
 onready var raycast = $RayCast2D
 #instancia do player, começando como null
@@ -16,11 +16,11 @@ var player_is_visible = false
 var is_player = false
 var enemy_original_position
 var enemy_position
-var enemy_position_after_folow
+#var enemy_position_after_folow
 onready var path = get_node("../")
 onready var navigation = get_node("../../../../Navigation2D")
 var state = 2
-var motion = Vector2()
+#var motion = Vector2()
 var is_original_position = true
 var path_navigation = []
 

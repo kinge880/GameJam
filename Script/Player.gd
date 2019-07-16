@@ -16,7 +16,6 @@ func _ready():
 	
 func _process(delta):
 	var movedir = Vector2()
-	look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed("ui_down"):
 		movedir += Vector2(0, 1)
@@ -32,8 +31,6 @@ func _process(delta):
 		rotation = Util.lerp_angle(rotation, motion.angle(), 0.1)
 	else:
 		motion = motion.linear_interpolate(Vector2(), dec)
-	
-	#look_at(motion)
 	
 	move_and_slide(motion * speed)
 	
