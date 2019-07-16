@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Bullet.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Bullet/Bullet 5.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sprites/Bullet/Bullet 4.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Bullet/Bullet 3.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/Bullet/Bullet 2.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/tile_187.png" type="Texture" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -15,12 +16,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 3.52878
-height = 8.1593
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.53004
 
 [node name="Bullet" type="Area2D"]
-position = Vector2( 340.464, 142.376 )
 z_index = 1
 collision_layer = 8
 collision_mask = 5
@@ -33,13 +32,15 @@ __meta__ = {
 autostart = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
 frames = SubResource( 1 )
 animation = "bullet"
-frame = 1
-playing = true
+frame = 2
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1.50259, -3.52097 )
 shape = SubResource( 2 )
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
