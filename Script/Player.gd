@@ -7,14 +7,16 @@ export var dash_speed = 800
 export var walk_speed = 200
 export var dash_time = 0.2
 export var pos_dash_recovery_stamina_time = 5
-export var life = 10
-export var max_life = 10
-export var stamina = 10
+export var current_life = 100
+export var max_life = 100
+export var current_stamina = 10
 export var max_stamina = 10
 export var stamina_cost = 3
 var motion = Vector2()
 export (PackedScene) var Bullet
 signal shoot
+signal life_changed
+signal stamina_changed
 var can_shoot = true
 export var acc = 0.5
 export var dec = 0.1
@@ -23,12 +25,13 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	#passa a instancia de player a todos no grupo "enemy" que possuem a função "_set_player"
 	get_tree().call_group("enemy", "_set_player", self)
+	emit_signal('life_changed', current_life * (100/max_life))
 	
 func _process(delta):
 	var movedir = Vector2()
 	$weapon.look_at(get_global_mouse_position())
 	
-	if Input.is_action_just_pressed("dash") and stamina > stamina_cost:
+	if Input.is_action_just_pressed("dash") and current_stamina > stamina_cost:
 		_dash()
 	if Input.is_action_pressed("ui_down"):
 		movedir += Vector2(0, 1)
@@ -52,7 +55,8 @@ func _process(delta):
 		_shoot()
 		
 func _dash():
-	stamina -= stamina_cost
+	current_stamina -= stamina_cost
+	_stamine_changed()
 	$StaminaRecoveryTime.wait_time = pos_dash_recovery_stamina_time
 	$DashTimer.wait_time = dash_time
 	speed = dash_speed
@@ -83,13 +87,20 @@ func _shoot():
 func _on_DashTimer_timeout():
 	speed = walk_speed
 
+func _life_changed():
+	emit_signal('life_changed', current_life * 100/max_life)
+
+func _stamine_changed():
+	emit_signal('stamina_changed', current_stamina * 100/max_stamina)
+	
 func _take_damage(damage):
-	life -= damage
-	print(life)
-	if life <=0:
+	current_life -= damage
+	_life_changed()
+	if current_life <=0:
 		_death()
 
 func _on_StaminaRecoveryTime_timeout():
 	$StaminaRecoveryTime.wait_time = 0.5
-	if stamina < max_stamina:
-		stamina += 1
+	if current_stamina < max_stamina:
+		current_stamina += 1
+		_stamine_changed()

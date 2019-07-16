@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Script/Map.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Word.tres" type="TileSet" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://EnemyArea.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Navigation2D
@@ -61,4 +62,8 @@ script = SubResource( 1 )
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
 position = Vector2( 176.396, -91.3568 )
 navpoly = SubResource( 2 )
+
+[node name="HUD" parent="." instance=ExtResource( 5 )]
+[connection signal="life_changed" from="Player" to="HUD" method="_on_Player_life_changed"]
 [connection signal="shoot" from="Player" to="." method="_on_Player_shoot"]
+[connection signal="stamina_changed" from="Player" to="HUD" method="_on_Player_stamina_changed"]
