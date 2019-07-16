@@ -61,10 +61,12 @@ func _process(delta):
 func _dash():
 	current_stamina -= stamina_cost
 	_stamine_changed()
-	$StaminaRecoveryTime.wait_time = pos_dash_recovery_stamina_time
+	$StaminaRecoveryTime.stop()
+	$wait_stamina_time.wait_time = pos_dash_recovery_stamina_time
+	$wait_stamina_time.start()
 	$DashTimer.wait_time = dash_time
-	speed = dash_speed
 	$DashTimer.start()
+	speed = dash_speed
 	
 #função para ativar a situação escolhida de "morte"
 func _death():
@@ -104,7 +106,9 @@ func _take_damage(damage):
 		_death()
 
 func _on_StaminaRecoveryTime_timeout():
-	$StaminaRecoveryTime.wait_time = 0.5
 	if current_stamina < max_stamina:
 		current_stamina += 1
 		_stamine_changed()
+
+func _on_wait_stamina_time_timeout():
+	$StaminaRecoveryTime.start()
