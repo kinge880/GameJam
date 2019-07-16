@@ -1,26 +1,39 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Script/Player.gd" type="Script" id=1]
 [ext_resource path="res://Bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/survivor1_stand.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Weapon/New Piskel-1.png.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Weapon/New Piskel-2.png.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Weapon/New Piskel-3.png.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Weapon/New Piskel-4.png.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Weapon/New Piskel-5.png.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Weapon/New Piskel-6.png.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Weapon/New Piskel-7.png.png" type="Texture" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.0519
 height = 21.5558
 
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+} ]
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 Bullet = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -1, 0 )
 shape = SubResource( 1 )
 
@@ -36,3 +49,16 @@ drag_margin_bottom = 0.3
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 250, 0 )
+
+[node name="weapon" type="AnimatedSprite" parent="."]
+position = Vector2( 0.342884, 0.214636 )
+scale = Vector2( 0.966463, 0.986585 )
+frames = SubResource( 2 )
+animation = "idle"
+frame = 3
+flip_h = true
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+[connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
