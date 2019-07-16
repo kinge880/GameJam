@@ -5,7 +5,7 @@ const Util = preload("res://Script/utils.gd")
 export var speed = 50
 export var max_speed = 150
 var chase_speed = 0
-export var life = 10
+export var life = 2
 export var stamina = 10
 export var damage = 1
 

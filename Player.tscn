@@ -1,15 +1,14 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Script/Player.gd" type="Script" id=1]
-[ext_resource path="res://Bullets/Bullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Sprites/survivor1_stand.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Weapon/New Piskel-1.png.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/Weapon/New Piskel-2.png.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/Weapon/New Piskel-3.png.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/Weapon/New Piskel-4.png.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/Weapon/New Piskel-5.png.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/Weapon/New Piskel-6.png.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/Weapon/New Piskel-7.png.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/survivor1_stand.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Weapon/New Piskel-1.png.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Weapon/New Piskel-2.png.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Weapon/New Piskel-3.png.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Weapon/New Piskel-4.png.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Weapon/New Piskel-5.png.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Weapon/New Piskel-6.png.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Weapon/New Piskel-7.png.png" type="Texture" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.0519
@@ -17,7 +16,7 @@ height = 21.5558
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
@@ -30,10 +29,9 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-Bullet = ExtResource( 2 )
 
 [node name="PlayerSprite" type="Sprite" parent="."]
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 0 )
@@ -58,7 +56,7 @@ frame = 3
 flip_h = true
 
 [node name="DashTimer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.3
 one_shot = true
 
 [node name="StaminaRecoveryTime" type="Timer" parent="."]

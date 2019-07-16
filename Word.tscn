@@ -60,7 +60,7 @@ position = Vector2( 701.862, 293.639 )
 script = SubResource( 1 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-position = Vector2( 176.396, -91.3568 )
+position = Vector2( 175.446, -91.3568 )
 navpoly = SubResource( 2 )
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]

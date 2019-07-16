@@ -1,19 +1,20 @@
 extends KinematicBody2D
 
 const Util = preload("res://Script/utils.gd")
+const Bullet = preload("res://Bullets/Bullet.tscn")
 
 export var speed = 200
-export var dash_speed = 800
+export var dash_speed = 1000
 export var walk_speed = 200
 export var dash_time = 0.2
 export var pos_dash_recovery_stamina_time = 5
-export var current_life = 100
-export var max_life = 100
-export var current_stamina = 10
-export var max_stamina = 10
+export var current_life = 5
+export var max_life = 5
+export var current_stamina = 6
+export var max_stamina = 6
 export var stamina_cost = 3
 var motion = Vector2()
-export (PackedScene) var Bullet
+#export (PackedScene) var Bullet
 signal shoot
 signal life_changed
 signal stamina_changed
@@ -23,13 +24,40 @@ export var dec = 0.1
 var last_shot_time = 0
 var shoot_cd = 250
 
+var RotateSpeed = 3
+var Radius = 40
+var _centre
+var _angle = [ 0, deg2rad(120), deg2rad(240) ]
+var bullets = []
+var magazine = 3
+
 func _ready():
 	yield(get_tree(), "idle_frame")
 	#passa a instancia de player a todos no grupo "enemy" que possuem a função "_set_player"
 	get_tree().call_group("enemy", "_set_player", self)
 	emit_signal('life_changed', current_life * (100/max_life))
-	
+	#$Bullet.position = Vector2(0, 40)
+	for i in range(3):
+		bullets.append(Bullet.instance())
+		add_child(bullets[i])
+		#bullets[i].connect("body_entered", self, "_on_Bullet_body_entered")
+	_centre = bullets[0].position
+
 func _process(delta):
+	var j = 0
+	for i in range(magazine):
+		if is_instance_valid(bullets[i]):
+			_angle[i] += RotateSpeed * delta;
+			var offset = Vector2(sin(_angle[i]), cos(_angle[i])) * (Radius + randf() * 10);
+			var pos = _centre + offset
+			bullets[i].position = pos
+			if i == magazine -1:
+				bullets[i].modulate = Color.yellow
+		else:
+			j += 1
+	if j == 3:
+		reload()
+	
 	var movedir = Vector2()
 	$weapon.look_at(get_global_mouse_position())
 	
@@ -46,7 +74,8 @@ func _process(delta):
 			
 	if movedir != Vector2():
 		motion = motion.linear_interpolate(movedir.normalized(), acc)
-		rotation = Util.lerp_angle(rotation, motion.angle(), 0.1)
+		$PlayerSprite.rotation = Util.lerp_angle($PlayerSprite.rotation, motion.angle(), 0.1)
+		$CollisionShape2D.rotation = Util.lerp_angle($CollisionShape2D.rotation, motion.angle(), 0.1)
 	else:
 		motion = motion.linear_interpolate(Vector2(), dec)
 	
@@ -58,6 +87,7 @@ func _process(delta):
 		if now - last_shot_time > shoot_cd:
 			last_shot_time = now
 			_shoot()
+
 func _dash():
 	current_stamina -= stamina_cost
 	_stamine_changed()
@@ -80,14 +110,31 @@ func short_angle_dist(from, to):
 
 func _shoot():
 	#a bala ta feia e simples ainda, quando formos atras do sprite dele a gente organiza bonitinho
-	if can_shoot:
-		#can_shoot = false
-		#esse global_rotation no futuro vai ser substituido por $weapon.global_rotation, pois vamos criar esferas ou uma linha como arma ne
-		#dai eu acredito que ela pdoe rotacionar na direção do mouse e a bala sair dela, dai já preparei tudo pra isso
-		var dir = Vector2(1, 0).rotated($weapon.global_rotation)
-		#emito um sinal com a bala,posição do player(no futuro vai ser do portal) e a direção que no futuro vai ser dir
-		emit_signal('shoot', Bullet, $weapon.global_position, dir)
+	if magazine < 1:
+		pass
+	else:
+		var bltpos = bullets[magazine -1].global_position
+		var mspos = get_global_mouse_position()
+		#bullets[magazine -1]._fire(mspos - bltpos)
+		bullets[magazine -1].queue_free()
+		bullets.remove(magazine -1)
+		emit_signal('shoot', Bullet, bltpos, mspos - bltpos)
+		magazine -= 1
+		if magazine == 0:
+			reload()
+	#can_shoot = false
+	#esse global_rotation no futuro vai ser substituido por $weapon.global_rotation, pois vamos criar esferas ou uma linha como arma ne
+	#dai eu acredito que ela pdoe rotacionar na direção do mouse e a bala sair dela, dai já preparei tudo pra isso
+	#var dir = Vector2(1, 0).rotated($weapon.global_rotation)
+	#emito um sinal com a bala,posição do player(no futuro vai ser do portal) e a direção que no futuro vai ser dir
 
+func reload():
+	_angle = [ 0, deg2rad(120), deg2rad(240) ]
+	
+	for i in range(3):
+		bullets.append(Bullet.instance())
+		add_child(bullets[i])
+	magazine = 3
 func _on_DashTimer_timeout():
 	speed = walk_speed
 
@@ -108,3 +155,9 @@ func _on_StaminaRecoveryTime_timeout():
 	if current_stamina < max_stamina:
 		current_stamina += 1
 		_stamine_changed()
+
+func _on_Bullet_body_entered(body):
+	for i in range(3):
+		pass
+	magazine -= 1
+	pass
