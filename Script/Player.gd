@@ -5,6 +5,7 @@ const Util = preload("res://Script/utils.gd")
 export var speed = 200
 export var dash_speed = 800
 export var walk_speed = 200
+export var dash_time = 0.2
 var motion = Vector2()
 onready var raycast = $RayCast2D
 export (PackedScene) var Bullet
@@ -48,9 +49,11 @@ func _process(delta):
 		#if raycast.is_colliding() and collision.has_method("_kill"):
 			#collision._kill()
 func _dash():
+	$DashTimer.wait_time = dash_time
 	$CollisionShape2D.disabled = true
 	speed = dash_speed
 	$DashTimer.start()
+	
 #função para ativar a situação escolhida de "morte"
 func _death():
 	get_tree().reload_current_scene()
@@ -73,7 +76,6 @@ func _shoot():
 		#emito um sinal com a bala,posição do player(no futuro vai ser do portal) e a direção que no futuro vai ser dir
 		emit_signal('shoot', Bullet, $weapon.global_position, dir)
 
-
-func _on_Timer_timeout():
+func _on_DashTimer_timeout():
 	$CollisionShape2D.disabled = false
 	speed = walk_speed
