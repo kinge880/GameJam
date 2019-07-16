@@ -63,4 +63,4 @@ func _shoot():
 		#dai eu acredito que ela pdoe rotacionar na direção do mouse e a bala sair dela, dai já preparei tudo pra isso
 		var dir = Vector2(1, 0).rotated(global_rotation)
 		#emito um sinal com a bala,posição do player(no futuro vai ser do portal) e a direção que no futuro vai ser dir
-		emit_signal('shoot', Bullet, global_position, get_global_mouse_position())
+		emit_signal('shoot', Bullet, global_position, dir)
