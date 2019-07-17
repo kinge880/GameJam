@@ -66,6 +66,7 @@ acc = 0.5
 dec = 0.1
 
 [node name="EnemyNode" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( 701.862, 293.639 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
