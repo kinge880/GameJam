@@ -17,47 +17,25 @@ var motion = Vector2()
 signal shoot
 signal life_changed
 signal stamina_changed
-var can_shoot = true
-export var acc = 0.5
-export var dec = 0.1
+#var can_shoot = true
+onready var acc = 0.5
+onready var dec = 0.1
 var last_shot_time = 0
 var shoot_cd = 250
 
-var RotateSpeed = 3
-var Radius = 40
-var _centre
-var _angle = [ 0, deg2rad(120), deg2rad(240) ]
-var bullets = []
 var magazine = 3
+var reloading = false
 
 func _ready():
 	yield(get_tree(), "idle_frame")
 	#passa a instancia de player a todos no grupo "enemy" que possuem a função "_set_player"
 	get_tree().call_group("enemy", "_set_player", self)
 	emit_signal('life_changed', current_life * (100/max_life))
-	
-	for i in range(3):
-		bullets.append(Bullet.instance())
-		add_child(bullets[i])
-	_centre = bullets[0].position
 
 func _process(delta):
-	var j = 0
-	for i in range(magazine):
-		if is_instance_valid(bullets[i]):
-			_angle[i] += RotateSpeed * delta;
-			var offset = Vector2(sin(_angle[i]), cos(_angle[i])) * (Radius + randf() * 10);
-			var pos = _centre + offset
-			bullets[i].position = pos
-			if i == magazine -1:
-				bullets[i].modulate = Color.yellow
-		else:
-			j += 1
-	if j == 3:
-		reload()
 	
 	var movedir = Vector2()
-	$weapon.look_at(get_global_mouse_position())
+	$barrier.look_at(get_global_mouse_position())
 	
 	if Input.is_action_just_pressed("dash") and current_stamina > stamina_cost:
 		_dash()
@@ -81,10 +59,11 @@ func _process(delta):
 	
 	#atacar, podemos modificar aqui pra fazer do jeito que preferimos, deixei assim de inicio pra ter uma base
 	if Input.is_action_pressed("atk"):
-		var now = OS.get_ticks_msec()
-		if now - last_shot_time > shoot_cd:
-			last_shot_time = now
-			_shoot()
+		if !reloading:
+			var now = OS.get_ticks_msec()
+			if now - last_shot_time > shoot_cd:
+				last_shot_time = now
+				_shoot()
 
 func _dash():
 	current_stamina -= stamina_cost
@@ -113,12 +92,8 @@ func _shoot():
 	if magazine < 1:
 		pass
 	else:
-		var bltpos = bullets[magazine -1].global_position
 		var mspos = get_global_mouse_position()
-		#bullets[magazine -1]._fire(mspos - bltpos)
-		bullets[magazine -1].queue_free()
-		bullets.remove(magazine -1)
-		emit_signal('shoot', Bullet, bltpos, mspos - bltpos)
+		emit_signal('shoot', Bullet, global_position, mspos - global_position)
 		magazine -= 1
 		if magazine == 0:
 			reload()
@@ -129,12 +104,15 @@ func _shoot():
 	#emito um sinal com a bala,posição do player(no futuro vai ser do portal) e a direção que no futuro vai ser dir
 
 func reload():
-	_angle = [ 0, deg2rad(120), deg2rad(240) ]
+	reloading = true
 	
 	for i in range(3):
-		bullets.append(Bullet.instance())
-		add_child(bullets[i])
-	magazine = 3
+		$RldTimer.start()
+		yield($RldTimer, "timeout")
+		magazine = i + 1
+	
+	reloading = false
+
 func _on_DashTimer_timeout():
 	speed = walk_speed
 

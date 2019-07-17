@@ -28,7 +28,7 @@ __meta__ = {
 }
 
 [node name="Lifetime" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.6
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 visible = false
