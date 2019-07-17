@@ -69,5 +69,8 @@ one_shot = true
 autostart = true
 
 [node name="RldTimer" type="Timer" parent="."]
+
+[node name="wait_stamina_time" type="Timer" parent="."]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="StaminaRecoveryTime" to="." method="_on_StaminaRecoveryTime_timeout"]
+[connection signal="timeout" from="wait_stamina_time" to="." method="_on_wait_stamina_time_timeout"]

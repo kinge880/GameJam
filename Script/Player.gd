@@ -10,9 +10,9 @@ export var dash_time = 0.2
 export var pos_dash_recovery_stamina_time = 5
 export var current_life = 5
 export var max_life = 5
-export var current_stamina = 6
-export var max_stamina = 6
-export var stamina_cost = 3
+export var current_stamina = 2
+export var max_stamina = 2
+export var stamina_cost = 1
 var motion = Vector2()
 signal shoot
 signal life_changed
@@ -37,7 +37,7 @@ func _process(delta):
 	var movedir = Vector2()
 	$barrier.look_at(get_global_mouse_position())
 	
-	if Input.is_action_just_pressed("dash") and current_stamina > stamina_cost:
+	if Input.is_action_just_pressed("dash") and current_stamina >= stamina_cost:
 		_dash()
 	if Input.is_action_pressed("ui_down"):
 		movedir += Vector2(0, 1)
