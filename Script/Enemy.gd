@@ -2,8 +2,8 @@ extends KinematicBody2D
 
 const Util = preload("res://Script/utils.gd")
 
-export var speed = 50
-export var max_speed = 150
+onready var speed = 50
+var max_speed = 150
 var chase_speed = 0
 export var current_life = 2
 export var max_life = 2
@@ -38,8 +38,8 @@ func _ready():
 	enemy_original_position = global_position
 	emit_signal('life_changed', current_life * 100/max_life)
 	
-func control(delta):
-	pass
+#func control(delta):
+#	pass
 	
 func _process(delta):
 	#evitar problemas
@@ -93,7 +93,7 @@ func _process(delta):
 			is_original_position = true
 	elif state == 2:
 		rotation = 0
-		path.offset +=  speed * delta
+		path.offset += speed * delta
 		
 	#se rayCast colidir ativa a função death do player
 	if raycast.is_colliding():

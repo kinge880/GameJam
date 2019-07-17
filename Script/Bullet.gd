@@ -1,6 +1,6 @@
 extends Area2D
 
-export var speed = 1500
+export var speed = 1000
 export var damage = 1
 var velocity = Vector2()
 onready var tween = get_node("Tween")
@@ -11,9 +11,9 @@ func _start(_position, _direction):
 	rotation = _direction.angle()
 	velocity = _direction.normalized()
 	$Lifetime.start()
-	tween.interpolate_property(self, "speed", speed, 0, 0.35, Tween.TRANS_QUART, Tween.EASE_IN)
+	tween.interpolate_property(self, "speed", speed, 0, 0.45, Tween.TRANS_QUART, Tween.EASE_IN)
 	tween.start()
-	modulate = Color.yellow
+	modulate = Color.plum
 
 func _process(delta):
 	global_position += velocity * delta  * speed

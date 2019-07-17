@@ -62,8 +62,6 @@ max_life = 5
 current_stamina = 6
 max_stamina = 6
 stamina_cost = 3
-acc = 0.5
-dec = 0.1
 
 [node name="EnemyNode" parent="." instance=ExtResource( 4 )]
 visible = false
