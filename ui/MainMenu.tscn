@@ -5,28 +5,28 @@
 [ext_resource path="res://assets/fonts/main_menu/Future TimeSplitters.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/fonts/main_menu/OpenSans-ExtraBold.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 100
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=2]
 size = 40
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=3]
 size = 40
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=4]
 size = 40
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=5]
 size = 14
 extra_spacing_char = 1
 font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 resource_name = "entry"
 length = 2.0
 tracks/0/type = "value"
@@ -62,17 +62,17 @@ custom_constants/margin_bottom = 60
 margin_left = 100.0
 margin_top = 60.0
 margin_right = 932.0
-margin_bottom = 699.0
+margin_bottom = 681.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBoxContainer"]
 margin_right = 832.0
-margin_bottom = 639.0
+margin_bottom = 621.0
 custom_constants/separation = 140
 
 [node name="Logo" type="Label" parent="Margin/HBoxContainer/VBoxContainer"]
 margin_right = 832.0
 margin_bottom = 105.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Jogo sem nome ainda NHAAAA"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBoxContainer/VBoxContainer"]
@@ -82,30 +82,30 @@ margin_bottom = 438.0
 custom_constants/separation = 5
 
 [node name="NewGame" type="Button" parent="Margin/HBoxContainer/VBoxContainer/VBoxContainer"]
-margin_right = 80.0
+margin_right = 832.0
 margin_bottom = 61.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 2 )
 text = "New Game"
 
-[node name="Options" type="Button" parent="Margin/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Keys" type="Button" parent="Margin/HBoxContainer/VBoxContainer/VBoxContainer"]
 margin_top = 66.0
-margin_right = 80.0
+margin_right = 832.0
 margin_bottom = 127.0
-custom_fonts/font = SubResource( 9 )
-text = "Options"
+custom_fonts/font = SubResource( 3 )
+text = "Mapa de teclas"
 
 [node name="Exit" type="Button" parent="Margin/HBoxContainer/VBoxContainer/VBoxContainer"]
 margin_top = 132.0
-margin_right = 80.0
+margin_right = 832.0
 margin_bottom = 193.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 4 )
 text = "Exit"
 
 [node name="Version" type="Label" parent="Margin/HBoxContainer/VBoxContainer"]
 margin_top = 578.0
 margin_right = 832.0
 margin_bottom = 621.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.0196078, 0.341176, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -115,6 +115,7 @@ text = "Version 0.1
 Ancap Studio"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/entry = SubResource( 7 )
+anims/entry = SubResource( 6 )
+[connection signal="focus_entered" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_NewGame_focus_entered"]
 [connection signal="pressed" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_Exit_pressed"]
