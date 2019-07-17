@@ -34,6 +34,7 @@ onready var tween = get_node("Tween")
 var stop_counter = 1
 
 func _ready():
+	$AnimationPlayer.play("idle")
 	add_to_group("enemy")
 	enemy_original_position = global_position
 	emit_signal('life_changed', current_life * 100/max_life)

@@ -42,10 +42,10 @@ tracks/0/keys = {
 "values": [ Color( 0.00784314, 0, 0, 1 ), Color( 0.0117647, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 resource_name = "transition"
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=8]
 size = 40
 font_data = ExtResource( 4 )
 
@@ -69,11 +69,11 @@ custom_constants/margin_bottom = 60
 margin_left = 100.0
 margin_top = 60.0
 margin_right = 932.0
-margin_bottom = 864.0
+margin_bottom = 711.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBoxContainer"]
 margin_right = 832.0
-margin_bottom = 804.0
+margin_bottom = 651.0
 custom_constants/separation = 130
 
 [node name="Logo" type="Label" parent="Margin/HBoxContainer/VBoxContainer"]
@@ -123,7 +123,7 @@ Ancap Studio"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/entry = SubResource( 6 )
-anims/transition = SubResource( 8 )
+anims/transition = SubResource( 7 )
 
 [node name="MapKey" type="Panel" parent="."]
 visible = false
@@ -155,7 +155,7 @@ margin_left = 257.208
 margin_top = 526.108
 margin_right = 454.208
 margin_bottom = 587.108
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 text = "Retornar"
 [connection signal="focus_entered" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_NewGame_focus_entered"]
 [connection signal="pressed" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]

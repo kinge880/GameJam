@@ -54,7 +54,6 @@ tile_data = PoolIntArray( 196611, 4, 0 )
 position = Vector2( 318.4, 139.495 )
 
 [node name="EnemyNode" parent="." instance=ExtResource( 4 )]
-visible = false
 position = Vector2( 701.862, 293.639 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
