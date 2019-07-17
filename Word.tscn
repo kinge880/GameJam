@@ -52,6 +52,18 @@ tile_data = PoolIntArray( 196611, 4, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 318.4, 139.495 )
+speed = 200
+dash_speed = 1000
+walk_speed = 200
+dash_time = 0.2
+pos_dash_recovery_stamina_time = 5
+current_life = 5
+max_life = 5
+current_stamina = 6
+max_stamina = 6
+stamina_cost = 3
+acc = 0.5
+dec = 0.1
 
 [node name="EnemyNode" parent="." instance=ExtResource( 4 )]
 position = Vector2( 701.862, 293.639 )
@@ -60,7 +72,7 @@ position = Vector2( 701.862, 293.639 )
 script = SubResource( 1 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-position = Vector2( 176.396, -91.3568 )
+position = Vector2( 175.446, -91.3568 )
 navpoly = SubResource( 2 )
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]

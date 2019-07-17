@@ -30,9 +30,6 @@ custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Recipe" type="HBoxContainer" parent="Margin"]
 margin_left = 20.0
