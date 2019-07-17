@@ -1,19 +1,20 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Script/Bullet.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Bullet/Bullet 5.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Bullet/Bullet 1.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Bullet/Bullet 4.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/Bullet/Bullet 3.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/Bullet/Bullet 2.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/tile_187.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile1-1.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile1-2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile1-3.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile3-1.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile4-1.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile4-3.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/tile_187.png" type="Texture" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "bullet",
-"speed": 5.0
+"speed": 6.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
@@ -31,13 +32,14 @@ __meta__ = {
 wait_time = 0.6
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-visible = false
 frames = SubResource( 1 )
 animation = "bullet"
-frame = 2
+frame = 3
+playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 7 )
+visible = false
+texture = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

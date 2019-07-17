@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Script/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Menu/screem.PNG" type="Texture" id=2]
@@ -22,7 +22,7 @@ size = 40
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=5]
-size = 14
+size = 32
 extra_spacing_char = 1
 font_data = ExtResource( 4 )
 
@@ -41,6 +41,13 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 0.00784314, 0, 0, 1 ), Color( 0.0117647, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
+
+[sub_resource type="Animation" id=8]
+resource_name = "transition"
+
+[sub_resource type="DynamicFont" id=7]
+size = 40
+font_data = ExtResource( 4 )
 
 [node name="Panel" type="Node2D"]
 script = ExtResource( 1 )
@@ -62,12 +69,12 @@ custom_constants/margin_bottom = 60
 margin_left = 100.0
 margin_top = 60.0
 margin_right = 932.0
-margin_bottom = 681.0
+margin_bottom = 864.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBoxContainer"]
 margin_right = 832.0
-margin_bottom = 621.0
-custom_constants/separation = 140
+margin_bottom = 804.0
+custom_constants/separation = 130
 
 [node name="Logo" type="Label" parent="Margin/HBoxContainer/VBoxContainer"]
 margin_right = 832.0
@@ -76,16 +83,16 @@ custom_fonts/font = SubResource( 1 )
 text = "Jogo sem nome ainda NHAAAA"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBoxContainer/VBoxContainer"]
-margin_top = 245.0
+margin_top = 235.0
 margin_right = 832.0
-margin_bottom = 438.0
+margin_bottom = 428.0
 custom_constants/separation = 5
 
 [node name="NewGame" type="Button" parent="Margin/HBoxContainer/VBoxContainer/VBoxContainer"]
 margin_right = 832.0
 margin_bottom = 61.0
 custom_fonts/font = SubResource( 2 )
-text = "New Game"
+text = "Novo Jogo"
 
 [node name="Keys" type="Button" parent="Margin/HBoxContainer/VBoxContainer/VBoxContainer"]
 margin_top = 66.0
@@ -99,12 +106,12 @@ margin_top = 132.0
 margin_right = 832.0
 margin_bottom = 193.0
 custom_fonts/font = SubResource( 4 )
-text = "Exit"
+text = "Sair"
 
 [node name="Version" type="Label" parent="Margin/HBoxContainer/VBoxContainer"]
-margin_top = 578.0
+margin_top = 558.0
 margin_right = 832.0
-margin_bottom = 621.0
+margin_bottom = 651.0
 custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.0196078, 0.341176, 0, 1 )
@@ -116,6 +123,42 @@ Ancap Studio"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/entry = SubResource( 6 )
+anims/transition = SubResource( 8 )
+
+[node name="MapKey" type="Panel" parent="."]
+visible = false
+margin_left = -31.0
+margin_top = -57.0
+margin_right = 1310.0
+margin_bottom = 755.0
+
+[node name="Keys" type="Label" parent="MapKey"]
+margin_left = 252.923
+margin_top = 201.576
+margin_right = 1084.92
+margin_bottom = 486.576
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.0196078, 0.341176, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+text = "W - Mover para cima
+S - Mover para baixo
+A - Mover para esquerda
+D - Mover para a direita
+Espaço - Dash
+Botão esquerdo do mouse - Atacar"
+
+[node name="Return" type="Button" parent="MapKey"]
+margin_left = 257.208
+margin_top = 526.108
+margin_right = 454.208
+margin_bottom = 587.108
+custom_fonts/font = SubResource( 7 )
+text = "Retornar"
 [connection signal="focus_entered" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_NewGame_focus_entered"]
 [connection signal="pressed" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/Keys" to="." method="_on_Keys_pressed"]
 [connection signal="pressed" from="Margin/HBoxContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="MapKey/Return" to="." method="_on_Return_pressed"]

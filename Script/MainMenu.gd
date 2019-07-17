@@ -10,5 +10,9 @@ func _on_NewGame_pressed():
 func _on_Exit_pressed():
 	get_tree().quit()
 	
+func _on_Keys_pressed():
+	$MapKey.show()
 
 
+func _on_Return_pressed():
+	$MapKey.hide()
