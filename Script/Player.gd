@@ -40,12 +40,16 @@ func _process(delta):
 	if Input.is_action_just_pressed("dash") and current_stamina >= stamina_cost:
 		_dash()
 	if Input.is_action_pressed("ui_down"):
+		$AnimationPlayer.play("walk")
 		movedir += Vector2(0, 1)
 	if Input.is_action_pressed("ui_up"):
+		$AnimationPlayer.play("walk")
 		movedir += Vector2(0, -1)
 	if Input.is_action_pressed("ui_left"):
+		$AnimationPlayer.play("walk")
 		movedir += Vector2(-1, 0)
 	if Input.is_action_pressed("ui_right"):
+		$AnimationPlayer.play("walk")
 		movedir += Vector2(1, 0)
 			
 	if movedir != Vector2():
@@ -54,6 +58,7 @@ func _process(delta):
 		$CollisionShape2D.rotation = Util.lerp_angle($CollisionShape2D.rotation, motion.angle(), 0.1)
 	else:
 		motion = motion.linear_interpolate(Vector2(), dec)
+		#$AnimationPlayer.play("idle")
 	
 	move_and_slide(motion * speed)
 	
