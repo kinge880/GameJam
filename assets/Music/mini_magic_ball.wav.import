@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mini_magic_ball.wav-233fbe4358a6ad36d23768d5c56deb99.sample"
+
+[deps]
+
+source_file="res://assets/Music/mini_magic_ball.wav"
+dest_files=[ "res://.import/mini_magic_ball.wav-233fbe4358a6ad36d23768d5c56deb99.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

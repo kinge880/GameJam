@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Script/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile1-1.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile4-1.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Bullet/heavy_turret_prototype.fx.second.projectile/projectile4-3.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/tile_187.png" type="Texture" id=8]
+[ext_resource path="res://assets/Music/mini_magic_ball.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/Music/Canom_Ball.wav" type="AudioStream" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -34,7 +36,6 @@ wait_time = 0.6
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "bullet"
-frame = 3
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -45,5 +46,11 @@ texture = ExtResource( 8 )
 shape = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="MiniBallSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+
+[node name="CanomBallSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]

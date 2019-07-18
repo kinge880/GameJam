@@ -13,6 +13,11 @@ func _on_Exit_pressed():
 func _on_Keys_pressed():
 	$MapKey.show()
 
-
 func _on_Return_pressed():
 	$MapKey.hide()
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		get_tree().paused = false
+	elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		get_tree().paused = true
