@@ -151,13 +151,13 @@ A - Mover para esquerda
 D - Mover para a direita
 Espaço - Dash
 Botão esquerdo do mouse - Atacar
-esc - Pausa o jogo"
+esc - Pausar o jogo"
 
 [node name="Return" type="Button" parent="MapKey"]
-margin_left = 257.208
-margin_top = 526.108
-margin_right = 454.208
-margin_bottom = 587.108
+margin_left = 250.527
+margin_top = 554.501
+margin_right = 447.527
+margin_bottom = 615.501
 custom_fonts/font = SubResource( 8 )
 text = "Retornar"
 
