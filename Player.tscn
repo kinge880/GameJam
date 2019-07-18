@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Script/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/survivor1_stand.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/path4539.png" type="Texture" id=3]
+[ext_resource path="res://ui/PausePopUp.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.0519
@@ -21,7 +22,6 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_horizontal_guides_": [  ]
 }
 
@@ -64,6 +64,10 @@ autostart = true
 [node name="RldTimer" type="Timer" parent="."]
 
 [node name="wait_stamina_time" type="Timer" parent="."]
+
+[node name="PausePopUp" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( -133.518, -107.773 )
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="StaminaRecoveryTime" to="." method="_on_StaminaRecoveryTime_timeout"]
 [connection signal="timeout" from="wait_stamina_time" to="." method="_on_wait_stamina_time_timeout"]

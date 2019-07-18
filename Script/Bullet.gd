@@ -11,6 +11,7 @@ func _start(_position, _direction):
 	rotation = _direction.angle()
 	velocity = _direction.normalized()
 	$Lifetime.start()
+	$MiniBallSound.play()
 	tween.interpolate_property(self, "speed", speed, 0, 0.45, Tween.TRANS_QUART, Tween.EASE_IN)
 	tween.start()
 	modulate = Color.plum
