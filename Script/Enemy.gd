@@ -53,12 +53,12 @@ func _process(delta):
 		return
 	
 	#se o player estiver dentro das duas áreas circulares, ativar
-	if player_inside_area and player_is_visible and is_player:
+	if player_is_visible and is_player:
 		#verificar para definir um lance na função la de baixo
 		is_original_position = false
 		#recebo o navigation2D pegando a posição do player e a posição do enemy
 		
-		path_navigation = navigation.get_simple_path(global_position, player.global_position)
+		path_navigation = navigation.get_simple_path(global_position, player.global_position, true)
 		update()
 		#a posição [0] seria a posição atual do enemy, a posição [1] deveria ser uma posição atualizada com base no melhor caminho
 		var nextPos = path_navigation[1]
@@ -151,14 +151,14 @@ func _on_Visibility_body_entered(body):
 	if body.name == "Player":
 		if is_original_position:
 			enemy_position = global_position
-		$Sprite.self_modulate = Color(1, 0, 0)
+		$idle.self_modulate = Color(1, 0, 0)
 		player_is_visible = true
 		is_player = true
 		state = 0
 
 func _on_Visibility_body_exited(body):
 	if body.name == "Player":
-		$Sprite.self_modulate = Color(1, 1, 1)
+		$idle.self_modulate = Color(1, 1, 1)
 		player_is_visible = false
 		is_player = false
 		state = 1
@@ -167,7 +167,9 @@ func _take_damage(damage):
 	current_life -= damage
 	_life_changed()
 	if current_life <=0:
-		_kill()
+		$AnimationPlayer.play("death")
+		$Body.disabled = true
+		$speak.stop()
 
 func _life_changed():
 	emit_signal('life_changed', current_life * 100/max_life)
