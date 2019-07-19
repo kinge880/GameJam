@@ -39,7 +39,7 @@ var big_magazine = 1
 var big_magazine_range = 1
 var big_reloading = false
 var book_obted = false
-var book_big_atk_obted = true
+var book_big_atk_obted = false
 
 func _ready():
 	yield(get_tree(), "idle_frame")
@@ -193,9 +193,11 @@ func _on_bookIgni_body_entered(body):
 	shoot_cd = 150
 	magazine_range = 5
 	$RldTimer.wait_time = 0.4
+	
 func _on_bookJarin_body_entered(body):
 	book_big_atk_obted = true
-
+	var j = bookJarin.instance()
+	add_child(j)
 
 func _on_bookLife_body_entered(body):
 	max_life += bookLife
@@ -203,33 +205,3 @@ func _on_bookLife_body_entered(body):
 	#$AnimationPlayer.play("staminaUp")
 	var l = lifeUp.instance()
 	add_child(l)
-	
-
-#apenas para teste, deletar dps	
-func _on_bookJarin2_body_entered(body):
-	book_big_atk_obted = true
-	var j = bookJarin.instance()
-	add_child(j)
-
-func _on_bookLife2_body_entered(body):
-	max_life += bookLife
-	current_life = max_life
-	#$AnimationPlayer.play("staminaUp")
-	var l = lifeUp.instance()
-	add_child(l)
-
-
-func _on_bookIgni2_body_entered(body):
-	var bi = bookIgni.instance()
-	add_child(bi)
-	magazine = 5
-	shoot_cd = 150
-	magazine_range = 5
-	$RldTimer.wait_time = 0.4
-
-func _on_BookEnergy2_body_entered(body):
-	max_stamina += bookenergy
-	current_stamina = max_stamina
-	#$AnimationPlayer.play("vidaUp")
-	var s = staminaUp.instance()
-	add_child(s)
