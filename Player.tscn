@@ -5,7 +5,7 @@
 [ext_resource path="res://Sprites/path4539.png" type="Texture" id=3]
 [ext_resource path="res://ui/PausePopUp.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/Music/Walk player.wav" type="AudioStream" id=5]
-[ext_resource path="res://assets/Music/173126__replix__death-sound-male.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/Music/396799__scorpion67890__male-death-2.ogg" type="AudioStream" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.0519
