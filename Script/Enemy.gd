@@ -151,14 +151,12 @@ func _on_Visibility_body_entered(body):
 	if body.name == "Player":
 		if is_original_position:
 			enemy_position = global_position
-		$idle.self_modulate = Color(1, 0, 0)
 		player_is_visible = true
 		is_player = true
 		state = 0
 
 func _on_Visibility_body_exited(body):
 	if body.name == "Player":
-		$idle.self_modulate = Color(1, 1, 1)
 		player_is_visible = false
 		is_player = false
 		state = 1
