@@ -31,7 +31,12 @@ var is_original_position = true
 var path_navigation = []
 
 onready var tween = get_node("Tween")
-var stop_counter = 1
+var stop_counter = 0.5
+var is_dashing = false
+var dash_direction
+var dash_duration
+var pre_dash = 0.3
+var player_in_dash = false
 
 func _ready():
 	$AnimationPlayer.play("idle")
@@ -72,12 +77,30 @@ func _process(delta):
 		if stop_counter <= 0:
 			#tween.stop_all()ss
 			if !tween.is_active():
-				tween.interpolate_property($".", "chase_speed", null, max_speed, 2, Tween.TRANS_EXPO, Tween.EASE_IN)
+				tween.interpolate_property($".", "chase_speed", null, max_speed, 2, Tween.TRANS_QUART, Tween.EASE_IN)
 				tween.start()
-			move_and_slide(to_player * chase_speed)
+			
+			if not is_dashing:
+				if player_in_dash && $DashCD.time_left <= 0:
+					dash_direction = player.global_position - global_position
+					modulate = Color.yellow
+					is_dashing = true
+					dash_duration = 0.3
+				else:
+					move_and_slide(to_player * chase_speed)
+			else:
+				pre_dash -= delta
+				if pre_dash <= 0:
+					move_and_slide(dash_direction.normalized() * 1000)
+					dash_duration -= delta
+					if dash_duration <= 0:
+							is_dashing = false
+							modulate = Color.white
+							pre_dash = 0.3
+							$DashCD.start()
 			is_original_position = false
 	else:
-		stop_counter = 1
+		stop_counter = 0.5
 	
 	if state == 1:
 		path_navigation = navigation.get_simple_path(global_position, enemy_position)
@@ -101,6 +124,12 @@ func _process(delta):
 		var collision = raycast.get_collider()
 		if collision.name == "Player":
 			collision._take_damage(damage)
+
+func dash(dir):
+	is_dashing = true
+	while global_position != dir:
+		global_position = global_position.linear_interpolate(dir, 0.1)
+	#move_and_slide(dir * 500)
 
 func _kill():
 	queue_free()
@@ -142,3 +171,11 @@ func _take_damage(damage):
 
 func _life_changed():
 	emit_signal('life_changed', current_life * 100/max_life)
+
+func _on_Dash_body_entered(body):
+	if body.name == "Player":
+		player_in_dash = true
+
+func _on_Dash_body_exited(body):
+	if body.name == "Player":
+		player_in_dash = false
