@@ -41,7 +41,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.8 ),
+"times": PoolRealArray( 0.7 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -50,6 +50,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=4]
+loop = true
 
 [sub_resource type="Animation" id=5]
 length = 1.25
@@ -101,10 +102,6 @@ shape = SubResource( 1 )
 current = true
 smoothing_enabled = true
 smoothing_speed = 3.5
-drag_margin_left = 0.5
-drag_margin_top = 0.3
-drag_margin_right = 0.5
-drag_margin_bottom = 0.3
 
 [node name="weapon" type="AnimatedSprite" parent="."]
 visible = false

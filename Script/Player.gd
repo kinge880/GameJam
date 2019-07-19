@@ -22,7 +22,6 @@ onready var acc = 0.5
 onready var dec = 0.1
 var last_shot_time = 0
 var shoot_cd = 250
-
 var magazine = 3
 var reloading = false
 
@@ -31,7 +30,8 @@ func _ready():
 	#passa a instancia de player a todos no grupo "enemy" que possuem a função "_set_player"
 	get_tree().call_group("enemy", "_set_player", self)
 	emit_signal('life_changed', current_life * (100/max_life))
-
+	$AnimationPlayer.play("idle")
+	
 func _process(delta):
 	
 	var movedir = Vector2()
@@ -40,16 +40,28 @@ func _process(delta):
 	if Input.is_action_just_pressed("dash") and current_stamina >= stamina_cost:
 		_dash()
 	if Input.is_action_pressed("ui_down"):
-		$AnimationPlayer.play("walk")
+		if $AnimationPlayer.get_current_animation().get_basename() == "walk":
+			pass
+		else:
+			$AnimationPlayer.play("walk")
 		movedir += Vector2(0, 1)
 	if Input.is_action_pressed("ui_up"):
-		$AnimationPlayer.play("walk")
+		if $AnimationPlayer.get_current_animation().get_basename() == "walk":
+			pass
+		else:
+			$AnimationPlayer.play("walk")
 		movedir += Vector2(0, -1)
 	if Input.is_action_pressed("ui_left"):
-		$AnimationPlayer.play("walk")
+		if $AnimationPlayer.get_current_animation().get_basename() == "walk":
+			pass
+		else:
+			$AnimationPlayer.play("walk")
 		movedir += Vector2(-1, 0)
 	if Input.is_action_pressed("ui_right"):
-		$AnimationPlayer.play("walk")
+		if $AnimationPlayer.get_current_animation().get_basename() == "walk":
+			pass
+		else:
+			$AnimationPlayer.play("walk")
 		movedir += Vector2(1, 0)
 			
 	if movedir != Vector2():
@@ -58,7 +70,7 @@ func _process(delta):
 		$CollisionShape2D.rotation = Util.lerp_angle($CollisionShape2D.rotation, motion.angle(), 0.1)
 	else:
 		motion = motion.linear_interpolate(Vector2(), dec)
-		#$AnimationPlayer.play("idle")
+		$AnimationPlayer.play("idle")
 		$walkAudio.stop()
 	
 	move_and_slide(motion * speed)

@@ -11,7 +11,8 @@ export var stamina = 10
 export var max_stamina = 10
 export var damage = 1
 signal life_changed
-onready var raycast = $RayCast2D
+onready var raycast = $RayCast2D3
+onready var raycast2 = $RayCast2D2
 #instancia do player, começando como null
 var player = null
 #se o player ta dentro ou não da area limite de movimentos do enemy
@@ -37,13 +38,14 @@ var dash_direction
 var dash_duration
 var pre_dash = 0.3
 var player_in_dash = false
+var playback 
 
 func _ready():
-	$AnimationPlayer.play("idle")
 	add_to_group("enemy")
 	enemy_original_position = global_position
 	emit_signal('life_changed', current_life * 100/max_life)
-	
+	playback = $AnimationTree.get("parameters/playback")
+	playback.start("idle")
 #func control(delta):
 #	pass
 	
@@ -124,6 +126,10 @@ func _process(delta):
 		var collision = raycast.get_collider()
 		if collision.name == "Player":
 			collision._take_damage(damage)
+	elif raycast2.is_colliding():
+		var collision = raycast2.get_collider()
+		if collision.name == "Player":
+			collision._take_damage(damage)
 
 func dash(dir):
 	is_dashing = true
@@ -166,8 +172,10 @@ func _on_Visibility_body_exited(body):
 func _take_damage(damage):
 	current_life -= damage
 	_life_changed()
+	playback.travel("take_damage")
+	$hit.play()
 	if current_life <=0:
-		$AnimationPlayer.play("death")
+		playback.travel("death")
 		$Body.disabled = true
 		$speak.stop()
 
