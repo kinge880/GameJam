@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 onready var life = $Margin/Recipe/LifeBar
 onready var stamina = $Margin/Recipe/StaminaBar
