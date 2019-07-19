@@ -58,6 +58,7 @@ func _process(delta):
 		$AnimationPlayer.stop()
 		motion = motion.linear_interpolate(Vector2(), dec)
 		#$AnimationPlayer.play("idle")
+		$walkAudio.stop()
 	
 	move_and_slide(motion * speed)
 	
@@ -81,7 +82,8 @@ func _dash():
 	
 #função para ativar a situação escolhida de "morte"
 func _death():
-	get_tree().reload_current_scene()
+	get_tree().change_scene("res://ui/GameOver.tscn")
+	
 
 func lerp_angle(from, to, weight):
 	return from + short_angle_dist(from, to) * weight
@@ -130,7 +132,7 @@ func _take_damage(damage):
 	current_life -= damage
 	_life_changed()
 	if current_life <=0:
-		_death()
+		$AnimationPlayer.play("death")
 
 func _on_StaminaRecoveryTime_timeout():
 	if current_stamina < max_stamina:

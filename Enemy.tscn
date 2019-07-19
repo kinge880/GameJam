@@ -1,24 +1,71 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Script/Enemy.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/zoimbie1_stand.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Enemy/Shade_Idle_v01 (1).png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Enemy/Shade_Idle_v01 (1).png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Enemy/Shade_Attack_v01 (1).png" type="Texture" id=3]
+[ext_resource path="res://assets/Music/249813__spookymodem__goblin-death.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/Music/263554__carmsie__death-is-your-only-escape.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 10.6805
-height = 23.3496
+radius = 12.651
+height = 30.8529
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 400.0
+radius = 289.929
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=3]
 radius = 200.0
 
-[sub_resource type="Animation" id=3]
-resource_name = "idle"
+[sub_resource type="Animation" id=4]
+resource_name = "atk"
+length = 1.13
+tracks/0/type = "value"
+tracks/0/path = NodePath("atk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "death"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("deathAudio:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_kill"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite2:frame")
+tracks/0/path = NodePath("idle:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -36,44 +83,49 @@ collision_mask = 3
 script = ExtResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2( 0.810486, -0.151764 )
+position = Vector2( 6.60576, -0.795685 )
 enabled = true
-cast_to = Vector2( 20, 0 )
+cast_to = Vector2( 25, 0 )
 collision_mask = 2
 collide_with_areas = true
 
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-modulate = Color( 1, 0.996078, 0.996078, 1 )
+[node name="idle" type="Sprite" parent="."]
+position = Vector2( -0.429276, -0.214638 )
 texture = ExtResource( 2 )
+vframes = 4
+hframes = 12
 
-[node name="Sprite2" type="Sprite" parent="."]
+[node name="atk" type="Sprite" parent="."]
+visible = false
 modulate = Color( 1, 0.996078, 0.996078, 1 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 12
-frame = 31
+frame = 35
 
 [node name="Body" type="CollisionShape2D" parent="."]
-position = Vector2( -2, 0 )
+visible = false
+position = Vector2( 10.5309, 0.569584 )
 shape = SubResource( 1 )
 
 [node name="Visibility" type="Area2D" parent="."]
-visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Visibility"]
+position = Vector2( 2.15845, 0 )
 shape = SubResource( 2 )
 
 [node name="Dash" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dash"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 3 )
+anims/atk = SubResource( 4 )
+anims/death = SubResource( 5 )
+anims/idle = SubResource( 6 )
 
 [node name="DashDuration" type="Timer" parent="."]
 one_shot = true
@@ -81,6 +133,14 @@ one_shot = true
 [node name="DashCD" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="deathAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="speak" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
+max_distance = 800.0
 [connection signal="body_entered" from="Visibility" to="." method="_on_Visibility_body_entered"]
 [connection signal="body_exited" from="Visibility" to="." method="_on_Visibility_body_exited"]
 [connection signal="body_entered" from="Dash" to="." method="_on_Dash_body_entered"]

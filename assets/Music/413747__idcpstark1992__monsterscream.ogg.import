@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/413747__idcpstark1992__monsterscream.ogg-ac09468e7e25b7966cdfa7ec4ae33941.oggstr"
+
+[deps]
+
+source_file="res://assets/Music/413747__idcpstark1992__monsterscream.ogg"
+dest_files=[ "res://.import/413747__idcpstark1992__monsterscream.ogg-ac09468e7e25b7966cdfa7ec4ae33941.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
