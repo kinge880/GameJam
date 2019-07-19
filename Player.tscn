@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Script/Player.gd" type="Script" id=1]
-[ext_resource path="res://walkPlayer.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player/walkPlayer.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/path4539.png" type="Texture" id=3]
 [ext_resource path="res://ui/PausePopUp.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/Music/Walk player.wav" type="AudioStream" id=5]
@@ -53,6 +53,14 @@ tracks/1/keys = {
 loop = true
 
 [sub_resource type="Animation" id=5]
+resource_name = "staminaUp"
+length = 2.0
+
+[sub_resource type="Animation" id=6]
+resource_name = "vidaUp"
+length = 2.0
+
+[sub_resource type="Animation" id=7]
 length = 1.25
 loop = true
 tracks/0/type = "value"
@@ -82,9 +90,10 @@ tracks/1/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 21
 script = ExtResource( 1 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_horizontal_guides_": [  ]
 }
 
@@ -125,6 +134,9 @@ autostart = true
 
 [node name="RldTimer" type="Timer" parent="."]
 
+[node name="bigRldTimer" type="Timer" parent="."]
+wait_time = 6.0
+
 [node name="wait_stamina_time" type="Timer" parent="."]
 
 [node name="PausePopUp" parent="." instance=ExtResource( 4 )]
@@ -134,7 +146,9 @@ position = Vector2( -133.518, -107.773 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/death = SubResource( 3 )
 anims/idle = SubResource( 4 )
-anims/walk = SubResource( 5 )
+anims/staminaUp = SubResource( 5 )
+anims/vidaUp = SubResource( 6 )
+anims/walk = SubResource( 7 )
 
 [node name="walkAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )

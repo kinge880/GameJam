@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Script/pupUpUpgrade.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/main_menu/OpenSans-BoldItalic.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 2 )
+
+[node name="StaminapopUp" type="Node2D"]
+pause_mode = 2
+z_index = 10
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -474.997
+margin_top = -192.834
+margin_right = 395.003
+margin_bottom = 48.1661
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.168627, 1, 0.2, 1 )
+custom_colors/font_outline_modulate = Color( 0.141176, 0.0156863, 0.0156863, 1 )
+custom_colors/font_color_shadow = Color( 0.603922, 0.0313726, 0.0313726, 1 )
+text = "Uma página rasgada salta em direção ao livro
+Ao se fundir você percebe um símbolo familiar
+NI!!
+O simbolo IGNI se tornou completo..."
+align = 1

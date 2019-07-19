@@ -106,37 +106,37 @@ tracks/1/keys = {
 "values": [ 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "death"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "take_damage"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
 
-[sub_resource type="AnimationNodeStateMachine" id=12]
-states/death/node = SubResource( 14 )
+[sub_resource type="AnimationNodeStateMachine" id=15]
+states/death/node = SubResource( 8 )
 states/death/position = Vector2( 222, 177 )
-states/idle/node = SubResource( 8 )
+states/idle/node = SubResource( 9 )
 states/idle/position = Vector2( 85, 69 )
-states/take_damage/node = SubResource( 9 )
+states/take_damage/node = SubResource( 10 )
 states/take_damage/position = Vector2( 410, 69 )
-transitions = [ "take_damage", "idle", SubResource( 10 ), "idle", "take_damage", SubResource( 11 ), "take_damage", "death", SubResource( 15 ), "idle", "death", SubResource( 16 ) ]
+transitions = [ "take_damage", "idle", SubResource( 11 ), "idle", "take_damage", SubResource( 12 ), "take_damage", "death", SubResource( 13 ), "idle", "death", SubResource( 14 ) ]
 start_node = "idle"
 end_node = "death"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=13]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=16]
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 4
@@ -162,7 +162,7 @@ position = Vector2( -0.429276, -0.214638 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 12
-frame = 25
+frame = 29
 
 [node name="atk" type="Sprite" parent="."]
 visible = false
@@ -199,10 +199,10 @@ anims/idle = SubResource( 6 )
 anims/take_damage = SubResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 12 )
+tree_root = SubResource( 15 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 13 )
+parameters/playback = SubResource( 16 )
 
 [node name="DashDuration" type="Timer" parent="."]
 one_shot = true

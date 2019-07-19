@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/walkPlayer.png-ac7e825485bf917e5fad6aa968a1fa64.stex"
+path="res://.import/bookIgni.png-c6a2d3b645b9bae9415e55c47f97f0b9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://walkPlayer.png"
-dest_files=[ "res://.import/walkPlayer.png-ac7e825485bf917e5fad6aa968a1fa64.stex" ]
+source_file="res://book/bookIgni.png"
+dest_files=[ "res://.import/bookIgni.png-c6a2d3b645b9bae9415e55c47f97f0b9.stex" ]
 
 [params]
 
