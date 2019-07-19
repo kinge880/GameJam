@@ -1,4 +1,4 @@
-extends Node2D
+extends MarginContainer
 
 func _ready():
 	$AnimationPlayer.play("start")

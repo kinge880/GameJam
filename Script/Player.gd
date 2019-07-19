@@ -83,15 +83,6 @@ func _dash():
 #função para ativar a situação escolhida de "morte"
 func _death():
 	get_tree().change_scene("res://ui/GameOver.tscn")
-	
-
-func lerp_angle(from, to, weight):
-	return from + short_angle_dist(from, to) * weight
-
-func short_angle_dist(from, to):
-	var max_angle = PI * 2
-	var difference = fmod(to - from, max_angle)
-	return fmod(2 * difference, max_angle) - difference
 
 func _shoot():
 	#a bala ta feia e simples ainda, quando formos atras do sprite dele a gente organiza bonitinho
@@ -133,6 +124,7 @@ func _take_damage(damage):
 	_life_changed()
 	if current_life <=0:
 		$AnimationPlayer.play("death")
+		_death()
 
 func _on_StaminaRecoveryTime_timeout():
 	if current_stamina < max_stamina:
