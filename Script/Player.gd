@@ -49,30 +49,28 @@ func _ready():
 	$AnimationPlayer.play("idle")
 	
 func _process(delta):
-	
-	var movedir = Vector2()
 	$barrier.look_at(get_global_mouse_position())
 	
 	if Input.is_action_just_pressed("dash") and current_stamina >= stamina_cost:
 		_dash()
+	
+	var movedir = Vector2()
 	if Input.is_action_pressed("ui_down"):
-		$AnimationPlayer.play("walk")
 		movedir += Vector2(0, 1)
 	if Input.is_action_pressed("ui_up"):
-		$AnimationPlayer.play("walk")
 		movedir += Vector2(0, -1)
 	if Input.is_action_pressed("ui_left"):
-		$AnimationPlayer.play("walk")
 		movedir += Vector2(-1, 0)
 	if Input.is_action_pressed("ui_right"):
-		$AnimationPlayer.play("walk")
 		movedir += Vector2(1, 0)
-			
+	
 	if movedir != Vector2():
+		$AnimationPlayer.play("walk")
 		motion = motion.linear_interpolate(movedir.normalized(), acc)
 		$PlayerSprite.rotation = Util.lerp_angle($PlayerSprite.rotation, motion.angle(), 0.1)
 		$CollisionShape2D.rotation = Util.lerp_angle($CollisionShape2D.rotation, motion.angle(), 0.1)
 	else:
+		$AnimationPlayer.stop()
 		motion = motion.linear_interpolate(Vector2(), dec)
 		$AnimationPlayer.play("idle")
 		$walkAudio.stop()
@@ -109,15 +107,6 @@ func _dash():
 #função para ativar a situação escolhida de "morte"
 func _death():
 	get_tree().change_scene("res://ui/GameOver.tscn")
-	
-
-func lerp_angle(from, to, weight):
-	return from + short_angle_dist(from, to) * weight
-
-func short_angle_dist(from, to):
-	var max_angle = PI * 2
-	var difference = fmod(to - from, max_angle)
-	return fmod(2 * difference, max_angle) - difference
 
 func _shoot():
 	if magazine < 1:
@@ -166,13 +155,14 @@ func _life_changed():
 	emit_signal('life_changed', current_life * 100/max_life)
 
 func _stamine_changed():
-	emit_signal('stamina_changed', current_stamina * 100/max_stamina)
+	emit_signal('stamina_changed', current_stamina)
 	
 func _take_damage(damage):
 	current_life -= damage
 	_life_changed()
 	if current_life <=0:
 		$AnimationPlayer.play("death")
+		_death()
 
 func _on_StaminaRecoveryTime_timeout():
 	if current_stamina < max_stamina:

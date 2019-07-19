@@ -38,6 +38,7 @@ margin_right = 1260.0
 margin_bottom = 700.0
 
 [node name="LifeBar" type="TextureProgress" parent="Margin/Recipe"]
+visible = false
 margin_right = 145.0
 margin_bottom = 680.0
 value = 100.0
@@ -47,20 +48,24 @@ tint_under = Color( 0, 0, 0, 1 )
 tint_over = Color( 0, 0, 0, 1 )
 tint_progress = Color( 0.992157, 0, 0.976471, 1 )
 
-[node name="Tween" type="Tween" parent="Margin/Recipe/LifeBar"]
-
 [node name="StaminaBar" type="TextureProgress" parent="Margin/Recipe"]
-margin_left = 149.0
-margin_right = 294.0
+margin_right = 145.0
 margin_bottom = 680.0
-value = 100.0
+max_value = 2.0
+value = 2.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 2 )
 tint_under = Color( 0.0117647, 0, 0, 1 )
 tint_progress = Color( 0, 1, 0.0390625, 1 )
 
-[node name="Tween" type="Tween" parent="Margin/Recipe/StaminaBar"]
+[node name="TextureProgress" type="TextureProgress" parent="Margin/Recipe"]
+margin_left = 149.0
+margin_right = 150.0
+margin_bottom = 680.0
+max_value = 3.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/lifeBar_flash = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

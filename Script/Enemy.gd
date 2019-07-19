@@ -79,7 +79,7 @@ func _process(delta):
 		if stop_counter <= 0:
 			#tween.stop_all()ss
 			if !tween.is_active():
-				tween.interpolate_property($".", "chase_speed", null, max_speed, 2, Tween.TRANS_QUART, Tween.EASE_IN)
+				tween.interpolate_property(self, "chase_speed", null, max_speed, 2, Tween.TRANS_QUART, Tween.EASE_IN)
 				tween.start()
 			
 			if not is_dashing:
@@ -131,12 +131,6 @@ func _process(delta):
 		if collision.name == "Player":
 			collision._take_damage(damage)
 
-func dash(dir):
-	is_dashing = true
-	while global_position != dir:
-		global_position = global_position.linear_interpolate(dir, 0.1)
-	#move_and_slide(dir * 500)
-
 func _kill():
 	queue_free()
 
@@ -168,6 +162,7 @@ func _on_Visibility_body_exited(body):
 		player_is_visible = false
 		is_player = false
 		state = 1
+
 #função pra tomar DANU
 func _take_damage(damage):
 	current_life -= damage
