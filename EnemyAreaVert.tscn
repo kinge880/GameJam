@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://EnemyArea.tscn" type="PackedScene" id=1]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 70, -19.9998, 20.1083, 0, -20.1083, 0, -70, -20.0002, -19.8468, -0.418121, 19.8468, 0.418121, -70, 19.9998, -20.1083, 0, 20.1083, 0, 70, 20.0002, 20.1764, 0, -20.1764, 0, 70, -19.9998 )
+}
+
+[node name="EnemyAreaVert" index="0" instance=ExtResource( 1 )]
+
+[node name="Path2D" parent="." index="1"]
+rotation = 1.57079
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" parent="Path2D" index="0"]
+position = Vector2( 70, -19.9998 )
+rotation = -3.14159

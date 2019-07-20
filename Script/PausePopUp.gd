@@ -6,14 +6,14 @@ func _ready():
 	
 #pausa o jogo com a tecla esc
 func _input(event):
-	if Input.is_action_just_released("esc") and is_paused == true:
+	if Input.is_action_just_pressed("esc") and is_paused == true:
 		print("oxi")
 		get_tree().paused = false
 		$".".hide()
 		is_paused = false
 		is_paused_by_esc = false
 		global_rotation = 0
-	elif Input.is_action_just_released("esc") and is_paused == false:
+	elif Input.is_action_just_pressed("esc") and is_paused == false:
 		print("eita")
 		get_tree().paused = true
 		$".".show()

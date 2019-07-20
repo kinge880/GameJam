@@ -7,13 +7,12 @@ radius = 690.501
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 2.2752, 30.7152, -2.2752, -30.7152, 132.946, -96.384, 62.5679, 3.41279, -62.5679, -3.41279, 74.36, -145.573, 57.4487, 0, -57.4487, 0, -81.4909, -151.83, 0, 0, 0, 0, -132.114, -104.619, 3.21964, -51.0846, -3.21964, 51.0846, -136.664, 108.913, 0, 0, 0, 0, -81.4909, 148.729, -76.4494, 2.94036, 76.4494, -2.94036, 89.1488, 145.885, 0, 0, 0, 0, 144.703, 77.05, 0, 0, 0, 0, 132.946, -96.384 )
+"points": PoolVector2Array( 0, 0, 0, 0, 10, -20, 20.1083, 0, -20.1083, 0, -10, -20, -19.8468, -0.418121, 19.8468, 0.418121, -10, 20, -20.1083, 0, 20.1083, 0, 10, 20, 20.1764, 0, -20.1764, 0, 10, -20 )
 }
 
-[node name="Enemy" type="Node2D"]
+[node name="EnemyArea" type="Node2D"]
 
 [node name="AreaMove" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 6
 __meta__ = {
@@ -27,8 +26,8 @@ shape = SubResource( 1 )
 curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 132.946, -96.384 )
-rotation = -1.63473
+position = Vector2( 10, -20 )
+rotation = 3.14159
 
 [node name="Enemy" parent="Path2D/PathFollow2D" instance=ExtResource( 1 )]
 [connection signal="body_entered" from="AreaMove" to="Path2D/PathFollow2D/Enemy" method="_on_AreaMove_body_entered"]
