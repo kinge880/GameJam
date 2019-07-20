@@ -3,8 +3,8 @@
 [ext_resource path="res://Script/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemy/Shade_Idle_v01 (1).png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Enemy/Shade_Attack_v01 (1).png" type="Texture" id=3]
-[ext_resource path="res://assets/Music/249813__spookymodem__goblin-death.wav" type="AudioStream" id=4]
-[ext_resource path="res://assets/Music/263554__carmsie__death-is-your-only-escape.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/Music/468008__robinhood76__07489-mutant-pain-scream.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/Music/238756__robinhood76__05030-scary-monster-cat-whirrs.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/Music/Hit_Hurt10.wav" type="AudioStream" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -162,7 +162,7 @@ position = Vector2( -0.429276, -0.214638 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 12
-frame = 31
+frame = 33
 
 [node name="atk" type="Sprite" parent="."]
 visible = false

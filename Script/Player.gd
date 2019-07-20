@@ -8,7 +8,6 @@ const staminaUp = preload("res://ui/staminaUpPopUp.tscn")
 const book = preload("res://ui/bookObted.tscn")
 const bookIgni = preload("res://ui/bookIgniPopUp.tscn")
 const bookJarin = preload("res://ui/bookJarinPopUp.tscn")
-
 export var speed = 200
 export var dash_speed = 1000
 export var walk_speed = 200
@@ -40,13 +39,18 @@ var big_magazine_range = 1
 var big_reloading = false
 var book_obted = false
 var book_big_atk_obted = false
-
+var not_damaged = true
+var playback
+var event_global
 func _ready():
 	yield(get_tree(), "idle_frame")
 	#passa a instancia de player a todos no grupo "enemy" que possuem a função "_set_player"
 	get_tree().call_group("enemy", "_set_player", self)
 	emit_signal('life_changed', current_life * (100/max_life))
-	$AnimationPlayer.play("idle")
+	playback = $AnimationTree.get("parameters/playback")
+	$AnimationTree.active = true
+	#$AnimationTree.play("idle")
+	playback.start("idle")
 	
 func _process(delta):
 	$barrier.look_at(get_global_mouse_position())
@@ -65,14 +69,16 @@ func _process(delta):
 		movedir += Vector2(1, 0)
 	
 	if movedir != Vector2():
-		$AnimationPlayer.play("walk")
+		playback.travel("walk")
+		#$AnimationPlayer.play("walk")
 		motion = motion.linear_interpolate(movedir.normalized(), acc)
 		$PlayerSprite.rotation = Util.lerp_angle($PlayerSprite.rotation, motion.angle(), 0.1)
 		$CollisionShape2D.rotation = Util.lerp_angle($CollisionShape2D.rotation, motion.angle(), 0.1)
 	else:
-		$AnimationPlayer.stop()
+		#$AnimationPlayer.stop()
 		motion = motion.linear_interpolate(Vector2(), dec)
-		$AnimationPlayer.play("idle")
+		playback.travel("idle")
+		#$AnimationPlayer.play("idle")
 		$walkAudio.stop()
 	
 	move_and_slide(motion * speed)
@@ -158,12 +164,26 @@ func _stamine_changed():
 	emit_signal('stamina_changed', current_stamina)
 	
 func _take_damage(damage):
-	current_life -= damage
-	_life_changed()
+	if not_damaged:
+		current_life -= damage
+		_life_changed()
+		not_damaged = false
+		$DamageTimer.start()
+		var movedir = Vector2()
+		if event_global:
+			if event_global is InputEventKey:
+				playback.travel("walk+damage")
+			else:
+				playback.travel("take_damage")
+		#$AnimationPlayer.play("take_damage")
 	if current_life <=0:
-		$AnimationPlayer.play("death")
+		playback.travel("death")
+		#$AnimationPlayer.play("death")
 		_death()
 
+func _input(event):
+	event_global = event
+	
 func _on_StaminaRecoveryTime_timeout():
 	if current_stamina < max_stamina:
 		current_stamina += 1
@@ -205,3 +225,6 @@ func _on_bookLife_body_entered(body):
 	#$AnimationPlayer.play("staminaUp")
 	var l = lifeUp.instance()
 	add_child(l)
+
+func _on_DamageTimer_timeout():
+	not_damaged = true

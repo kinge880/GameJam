@@ -119,8 +119,8 @@ custom_colors/font_outline_modulate = Color( 0.0196078, 0.341176, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
-text = "Versão 0.1
-Ancap Studio"
+text = "Versão 0.2
+JM Studio"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/entry = SubResource( 6 )
@@ -149,14 +149,15 @@ S - Mover para baixo
 A - Mover para esquerda
 D - Mover para a direita
 Espaço - Dash
-Botão esquerdo do mouse - Atacar
+Botão esquerdo do mouse - Ataque fraco
+Botão direito do mouse - Ataque Forte
 esc - Pausar o jogo"
 
 [node name="Return" type="Button" parent="MapKey"]
-margin_left = 250.527
-margin_top = 554.501
-margin_right = 447.527
-margin_bottom = 615.501
+margin_left = 253.867
+margin_top = 604.606
+margin_right = 450.867
+margin_bottom = 665.606
 custom_fonts/font = SubResource( 8 )
 text = "Retornar"
 
