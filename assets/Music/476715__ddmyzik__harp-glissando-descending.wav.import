@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/476715__ddmyzik__harp-glissando-descending.wav-6c767ed4ece050a9ccb680c00aa62da6.sample"
+
+[deps]
+
+source_file="res://assets/Music/476715__ddmyzik__harp-glissando-descending.wav"
+dest_files=[ "res://.import/476715__ddmyzik__harp-glissando-descending.wav-6c767ed4ece050a9ccb680c00aa62da6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

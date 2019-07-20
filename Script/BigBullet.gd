@@ -1,6 +1,6 @@
 extends Area2D
 
-export var speed = 1000
+export var speed = 1800
 export var damage = 1
 var velocity = Vector2()
 onready var tween = get_node("Tween")

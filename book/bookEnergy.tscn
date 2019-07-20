@@ -1,22 +1,86 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Script/book.gd" type="Script" id=1]
-[ext_resource path="res://book/bookStamina.png" type="Texture" id=2]
+[ext_resource path="res://assets/Music/238855_pearcewilsonking_collected-item (online-audio-converter.com).wav" type="AudioStream" id=2]
+[ext_resource path="res://book/shadow book.png" type="Texture" id=3]
+[ext_resource path="res://book/bookStamina.png" type="Texture" id=4]
 
+[sub_resource type="Animation" id=1]
+resource_name = "bounce"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("book:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( -1.51572, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -12 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("shadow book:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0.25, 0.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("shadow book:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.001, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.886115, 0.909163 ), Vector2( 0.16, 0.33 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 0.392292 ),
+"update": 1,
+"values": [ true ]
+}
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 5.27966, 8.66711 )
 
-[node name="BookEnergy" type="Area2D"]
-position = Vector2( 344.366, 1063.62 )
-collision_layer = 16
-collision_mask = 2
+[node name="bookEnergy" type="Area2D"]
 script = ExtResource( 1 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = -3.075
+max_distance = 1000.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/bounce = SubResource( 1 )
+
+[node name="shadow book" type="Sprite" parent="."]
+position = Vector2( 0.213635, 0.427271 )
+scale = Vector2( 0.265831, 0.414413 )
+texture = ExtResource( 3 )
+
+[node name="book" type="Sprite" parent="."]
+position = Vector2( 0, -11.0766 )
+texture = ExtResource( 4 )
 
 [node name="catchbook" type="CollisionShape2D" parent="."]
 position = Vector2( 0.483734, -4.55518 )
-shape = SubResource( 1 )
-
-[node name="book" type="Sprite" parent="."]
-texture = ExtResource( 2 )
-[connection signal="body_entered" from="." to="." method="_on_bookArea_body_entered"]
+shape = SubResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_bookEnergy_body_entered"]
