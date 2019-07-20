@@ -7,8 +7,8 @@ var max_speed = 150
 var chase_speed = 0
 export var current_life = 2
 export var max_life = 2
-export var stamina = 10
-export var max_stamina = 10
+#export var stamina = 10
+#export var max_stamina = 10
 export var damage = 1
 signal life_changed
 onready var raycast = $RayCast2D3
