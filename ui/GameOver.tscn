@@ -20,7 +20,7 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1, 1.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
@@ -125,9 +125,11 @@ custom_fonts/font = SubResource( 1 )
 text = "Omae wa mou...
 shindeiru"
 align = 1
+percent_visible = 0.0
 
 [node name="Reset" type="Button" parent="Panel"]
 pause_mode = 2
+modulate = Color( 0, 0, 0, 0 )
 margin_top = 145.0
 margin_right = 1280.0
 margin_bottom = 174.0

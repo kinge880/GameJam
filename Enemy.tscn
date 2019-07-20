@@ -162,7 +162,7 @@ position = Vector2( -0.429276, -0.214638 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 12
-frame = 31
+frame = 25
 
 [node name="atk" type="Sprite" parent="."]
 visible = false
