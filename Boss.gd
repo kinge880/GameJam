@@ -51,6 +51,10 @@ var module_state = Color(1,1,1)
 var anim_state = 0
 var damage_is_moving = true
 var life_percent
+var first_encounter = true
+var helistart = true
+var speak = true
+var nosignal = true
 
 func _ready():
 	add_to_group("enemy")
@@ -69,6 +73,10 @@ func _process(delta):
 	
 	#se o player estiver dentro das duas áreas circulares, ativar
 	if player_is_visible and is_player:
+		if first_encounter == true:
+			$StartAudio.play()
+			first_encounter = false
+			
 		life_percent = current_life * 100/max_life
 		is_original_position = false
 			
@@ -125,6 +133,9 @@ func _process(delta):
 			
 			elif life_percent < 25:
 				playback.travel("helicopter")
+				if helistart == true:
+					$Heli.play()
+					helistart = false
 				$ReloadTimer.wait_time = 0.1
 				module_state = Color(1, 0, 0.047059)
 				#if is_in_action:
@@ -157,6 +168,7 @@ func _process(delta):
 						is_in_action = false
 						damage = 3
 						anim_state = 0
+						$dash_impact/CollisionShape2D.disabled = false
 						_change_anim()
 						if life_percent > 50:
 							$RobotOneWeapon.hide()
@@ -174,6 +186,7 @@ func _process(delta):
 						else:
 							$RobotTwoWeapon.show()
 							$RobotDash.hide()
+						$dash_impact/CollisionShape2D.disabled = true
 						damage = 1
 						is_in_action = true
 						move_and_slide(to_player * chase_speed)
@@ -194,12 +207,19 @@ func _process(delta):
 							is_dashing = false
 							pre_dash = pre_dash_time
 							$DashCD.start()
+							$dash_impact/CollisionShape2D.disabled = true
 				is_original_position = false	
 	else:
 		modulate = Color(1, 1, 1)
 		stop_counter = 2
+		first_encounter = true
+		speak = true
+		helistart = true
 			
 	if state == 1:
+		if nosignal == true:
+			$NoSignal.play()
+			nosignal = false
 		path_navigation = navigation.get_simple_path(global_position, enemy_position)
 		var nextPos = path_navigation[1]
 		#igual ao anterior só que pegando a posição inicial do enemy
@@ -215,6 +235,7 @@ func _process(delta):
 	elif state == 2:
 		rotation = 0
 		path.offset += speed * delta	
+	
 	#se rayCast colidir ativa a função death do player
 	if raycast.is_colliding():
 		var collision = raycast.get_collider()
@@ -327,3 +348,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		else:
 			anim_state = 2
 	_change_anim()
+
+func _on_dash_impact_body_entered(body):
+	if body.has_method('_take_damage'):
+		body._take_damage(damage)
