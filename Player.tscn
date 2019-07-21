@@ -22,7 +22,7 @@ animations = [ {
 
 [sub_resource type="Animation" id=3]
 resource_name = "death"
-length = 0.8
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("deathAudio:playing")
 tracks/0/interp = 1
@@ -42,7 +42,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.7 ),
+"times": PoolRealArray( 2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -307,6 +307,8 @@ parameters/walk+damage/Add2/add_amount = 1.0
 stream = ExtResource( 7 )
 volume_db = 3.152
 pitch_scale = 1.1
+
+[node name="DeathDelayTimer" type="Timer" parent="."]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="StaminaRecoveryTime" to="." method="_on_StaminaRecoveryTime_timeout"]
 [connection signal="timeout" from="wait_stamina_time" to="." method="_on_wait_stamina_time_timeout"]
