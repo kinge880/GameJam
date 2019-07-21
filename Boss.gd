@@ -93,6 +93,7 @@ func _process(delta):
 			_change_anim()
 				
 			if life_percent > 75:
+				$DashCD.wait_time = 2
 				if is_in_action:
 					pass
 					#modulate = module_state
@@ -101,7 +102,7 @@ func _process(delta):
 				#if is_in_action:
 					#modulate = module_state
 				#tempo de espera entre cada dash
-				$DashCD.wait_time = 10
+				$DashCD.wait_time = 2
 				$ReloadTimer.wait_time = 0.4
 				#tempo de espera para iniciar o dash
 				pre_dash_time = 0.6
@@ -179,9 +180,9 @@ func _process(delta):
 				else:
 					pre_dash -= delta
 					if pre_dash <= 0:
+						move_and_slide(dash_direction.normalized() * dash_distance)
 						anim_state = 1
 						_change_anim()
-						move_and_slide(dash_direction.normalized() * dash_distance)
 						dash_duration -= delta
 						if dash_duration <= 0:
 							if life_percent > 50:

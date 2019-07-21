@@ -25,7 +25,6 @@ shape = SubResource( 1 )
 shape = SubResource( 2 )
 
 [node name="ExplosionTimer" type="Timer" parent="."]
-wait_time = 0.6
 [connection signal="body_entered" from="." to="." method="_on_TrapArea_body_entered"]
 [connection signal="body_entered" from="EffectArea" to="." method="_on_EffectArea_body_entered"]
 [connection signal="body_exited" from="EffectArea" to="." method="_on_EffectArea_body_exited"]
