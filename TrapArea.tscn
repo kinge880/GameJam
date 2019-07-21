@@ -22,7 +22,6 @@ color = Color( 1, 0, 0, 0.392157 )
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, -32, 32, 32, -32, 32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="Explosion" type="Particles2D" parent="."]

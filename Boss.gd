@@ -292,6 +292,7 @@ func _take_damage(damage):
 	$hit.play()
 	if current_life <=0:
 		playback.travel("death")
+		$Explosion.emitting = true
 		$Body.disabled = true
 		$speak.stop()
 

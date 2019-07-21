@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Boss.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemy/boss/Robot 1/robotBase.png" type="Texture" id=2]
@@ -11,6 +11,9 @@
 [ext_resource path="res://assets/Music/bossDub/morra intruso.wav" type="AudioStream" id=9]
 [ext_resource path="res://assets/Music/bossDub/falaRobot.wav" type="AudioStream" id=10]
 [ext_resource path="res://assets/Music/Hit_Hurt10.wav" type="AudioStream" id=11]
+[ext_resource path="res://Sprites/particles2.tres" type="Material" id=12]
+[ext_resource path="res://Sprites/particles.tres" type="Material" id=13]
+[ext_resource path="res://Sprites/fire_particle.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 18.7954, 21.7508 )
@@ -396,6 +399,17 @@ one_shot = true
 
 [node name="ReloadHeli" type="Timer" parent="."]
 wait_time = 20.0
+
+[node name="Explosion" type="Particles2D" parent="."]
+material = ExtResource( 12 )
+position = Vector2( -10, 0 )
+z_index = 2
+emitting = false
+one_shot = true
+speed_scale = 0.6
+explosiveness = 1.0
+process_material = ExtResource( 13 )
+texture = ExtResource( 14 )
 [connection signal="body_entered" from="dash_impact" to="." method="_on_dash_impact_body_entered"]
 [connection signal="body_entered" from="Visibility" to="." method="_on_Visibility_body_entered"]
 [connection signal="body_exited" from="Visibility" to="." method="_on_Visibility_body_exited"]

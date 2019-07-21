@@ -61,8 +61,6 @@ func _process(delta):
 	
 	$barrier.look_at(get_global_mouse_position())
 	
-	if Input.is_action_just_pressed("dash") and current_stamina >= stamina_cost:
-		_dash()
 	
 	var movedir = Vector2()
 	if Input.is_action_pressed("ui_down"):
@@ -75,6 +73,8 @@ func _process(delta):
 		movedir += Vector2(1, 0)
 	
 	if movedir != Vector2():
+		if Input.is_action_just_pressed("dash") and current_stamina >= stamina_cost:
+			_dash()
 		playback.travel("walk")
 		#$AnimationPlayer.play("walk")
 		motion = motion.linear_interpolate(movedir.normalized(), acc)
