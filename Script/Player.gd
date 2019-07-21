@@ -8,6 +8,7 @@ const staminaUp = preload("res://ui/staminaUpPopUp.tscn")
 const book = preload("res://ui/bookObted.tscn")
 const bookIgni = preload("res://ui/bookIgniPopUp.tscn")
 const bookJarin = preload("res://ui/bookJarinPopUp.tscn")
+
 export var speed = 200
 export var dash_speed = 1000
 export var walk_speed = 200
@@ -20,14 +21,15 @@ export var max_life = 5
 export var current_stamina = 2
 export var max_stamina = 2
 export var stamina_cost = 1
-var motion = Vector2()
+
 signal shoot
 signal big_shoot
 signal life_changed
 signal stamina_changed
-#var can_shoot = true
+
 onready var acc = 0.5
 onready var dec = 0.1
+var motion = Vector2()
 var last_shot_time = 0
 var shoot_cd = 250
 var magazine = 3
@@ -60,7 +62,6 @@ func _process(delta):
 		return
 	
 	$barrier.look_at(get_global_mouse_position())
-	
 	
 	var movedir = Vector2()
 	if Input.is_action_pressed("ui_down"):
@@ -164,7 +165,7 @@ func _on_DashTimer_timeout():
 	speed = walk_speed
 
 func _life_changed():
-	emit_signal('life_changed', current_life * 100/max_life)
+	emit_signal('life_changed', current_life)
 
 func _stamine_changed():
 	emit_signal('stamina_changed', current_stamina)
@@ -175,6 +176,7 @@ func _take_damage(damage):
 		_life_changed()
 		not_damaged = false
 		$DamageTimer.start()
+		$HealDelayTimer.start()
 		var movedir = Vector2()
 		if event_global:
 			if event_global is InputEventKey:
@@ -237,3 +239,10 @@ func _on_bookLife_body_entered(body):
 
 func _on_DamageTimer_timeout():
 	not_damaged = true
+
+func _on_HealDelayTimer_timeout():
+	while current_life < max_life:
+		current_life += 1
+		_life_changed()
+		$HealTimer.start()
+		yield($HealTimer, "timeout")

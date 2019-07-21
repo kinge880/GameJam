@@ -270,9 +270,11 @@ one_shot = true
 autostart = true
 
 [node name="RldTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="bigRldTimer" type="Timer" parent="."]
 wait_time = 6.0
+one_shot = true
 
 [node name="wait_stamina_time" type="Timer" parent="."]
 
@@ -294,7 +296,7 @@ stream = ExtResource( 5 )
 stream = ExtResource( 6 )
 
 [node name="DamageTimer" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 2.0
 one_shot = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -309,7 +311,15 @@ volume_db = 3.152
 pitch_scale = 1.1
 
 [node name="DeathDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HealDelayTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="HealTimer" type="Timer" parent="."]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="StaminaRecoveryTime" to="." method="_on_StaminaRecoveryTime_timeout"]
 [connection signal="timeout" from="wait_stamina_time" to="." method="_on_wait_stamina_time_timeout"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
+[connection signal="timeout" from="HealDelayTimer" to="." method="_on_HealDelayTimer_timeout"]

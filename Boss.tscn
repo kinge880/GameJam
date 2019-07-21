@@ -400,6 +400,11 @@ one_shot = true
 [node name="ReloadHeli" type="Timer" parent="."]
 wait_time = 20.0
 
+[node name="DeathDelayTimer" type="Timer" parent="."]
+editor/display_folded = true
+wait_time = 2.0
+one_shot = true
+
 [node name="Explosion" type="Particles2D" parent="."]
 material = ExtResource( 12 )
 position = Vector2( -10, 0 )

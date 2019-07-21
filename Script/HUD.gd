@@ -5,7 +5,7 @@ onready var stamina = $Margin/Recipe/StaminaBar
 onready var tween = $Tween
 
 func _update_lifeBar(new_life):
-	tween.interpolate_property(life, 'value', life.value, new_life, 0.2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.interpolate_property(life, "value", life.value, new_life, 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	if not tween.is_active():
 		tween.start()
 	$AnimationPlayer.play("lifeBar_flash")

@@ -56,6 +56,8 @@ var helistart = true
 var speak = true
 var nosignal = true
 
+var dead = false
+
 func _ready():
 	add_to_group("enemy")
 	enemy_original_position = global_position
@@ -69,6 +71,8 @@ func _ready():
 func _process(delta):
 	#evitar problemas
 	if player == null:
+		return
+	if dead:
 		return
 	
 	#se o player estiver dentro das duas áreas circulares, ativar
@@ -245,8 +249,11 @@ func _process(delta):
 		var collision = raycast2.get_collider()
 		if collision.name == "Player":
 			collision._take_damage(damage)
-			
-func _kill():
+
+func _death():
+	dead = true
+	$DeathDelayTimer.start()
+	yield($DeathDelayTimer, "timeout")
 	queue_free()
 
 #essa função permite mudar a variavel player, pegando a instancia de player
@@ -291,13 +298,15 @@ func _take_damage(damage):
 	_life_changed()
 	$hit.play()
 	if current_life <=0:
+		modulate = Color.white
 		playback.travel("death")
 		$Explosion.emitting = true
 		$Body.disabled = true
 		$speak.stop()
+		_death()
 
 func _life_changed():
-	emit_signal('life_changed', current_life * 100/max_life)
+	emit_signal('life_changed', current_life)
 
 func _on_Dash_body_entered(body):
 	if body.name == "Player":

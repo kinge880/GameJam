@@ -22,8 +22,7 @@ func _on_Player_shoot(bullet, _position, _direction):
 func _on_Player_big_shoot(bullet, _position, _direction):
 	var b = bullet.instance()
 	add_child(b)
-	b._start(_position, _direction) 
-
+	b._start(_position, _direction)
 
 func _on_Boss_enemy_shoot(bullet, _position, _direction):
 	var b = bullet.instance()

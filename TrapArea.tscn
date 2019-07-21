@@ -11,7 +11,7 @@
 extents = Vector2( 32, 32 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 160.0
+radius = 128.0
 
 [node name="TrapArea" type="Area2D"]
 script = ExtResource( 1 )
@@ -41,9 +41,11 @@ shape = SubResource( 2 )
 
 [node name="ExplosionTimer" type="Timer" parent="."]
 wait_time = 0.4
+one_shot = true
 
 [node name="ParticlesTimer" type="Timer" parent="."]
 wait_time = 0.2
+one_shot = true
 
 [node name="explosion" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )

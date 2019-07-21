@@ -40,7 +40,8 @@ margin_bottom = 700.0
 [node name="LifeBar" type="TextureProgress" parent="Margin/Recipe"]
 margin_right = 145.0
 margin_bottom = 680.0
-value = 100.0
+max_value = 10.0
+value = 5.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 2 )
 tint_under = Color( 0, 0, 0, 1 )
@@ -51,7 +52,7 @@ tint_progress = Color( 0.992157, 0, 0.976471, 1 )
 margin_left = 149.0
 margin_right = 294.0
 margin_bottom = 680.0
-max_value = 2.0
+max_value = 4.0
 value = 2.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 2 )
@@ -59,6 +60,7 @@ tint_under = Color( 0.0117647, 0, 0, 1 )
 tint_progress = Color( 0, 1, 0.0390625, 1 )
 
 [node name="TextureProgress" type="TextureProgress" parent="Margin/Recipe"]
+visible = false
 margin_left = 298.0
 margin_right = 299.0
 margin_bottom = 680.0
