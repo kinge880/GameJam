@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Script/TrapArea.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/particles2.tres" type="Material" id=2]
 [ext_resource path="res://Sprites/particles.tres" type="Material" id=3]
 [ext_resource path="res://Sprites/fire_particle.png" type="Texture" id=4]
+[ext_resource path="res://assets/Music/Canom_Ball.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/Music/Hit_Hurt10.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
@@ -43,6 +45,16 @@ wait_time = 0.4
 
 [node name="ParticlesTimer" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+volume_db = 7.0
+pitch_scale = 0.4
+
+[node name="active" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+pitch_scale = 4.0
 [connection signal="body_entered" from="." to="." method="_on_TrapArea_body_entered"]
 [connection signal="body_entered" from="EffectArea" to="." method="_on_EffectArea_body_entered"]
 [connection signal="body_exited" from="EffectArea" to="." method="_on_EffectArea_body_exited"]
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_ExplosionTimer_timeout"]

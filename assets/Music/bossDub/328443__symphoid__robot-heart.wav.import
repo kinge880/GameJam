@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/328443__symphoid__robot-heart.wav-e204418b88bba4b9909d996c32cb7acf.sample"
+
+[deps]
+
+source_file="res://assets/Music/bossDub/328443__symphoid__robot-heart.wav"
+dest_files=[ "res://.import/328443__symphoid__robot-heart.wav-e204418b88bba4b9909d996c32cb7acf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
