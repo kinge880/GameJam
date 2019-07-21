@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Boss.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemy/boss/Robot 1/robotBase.png" type="Texture" id=2]
@@ -52,7 +52,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "helicopter"
-length = 1.85
+length = 1.8
 loop = true
 step = 0.05
 tracks/0/type = "value"
@@ -62,10 +62,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1.8 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0, 200.0, 210.0, 220.0, 230.0, 240.0, 250.0, 260.0, 270.0, 280.0, 290.0, 300.0, 310.0, 320.0, 330.0, 340.0, 350.0, 360.0, 0.0 ]
+"values": [ 0.0, 360.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("RobotTwoWeapon:rotation_degrees")
@@ -74,18 +74,31 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.79865, 1.85 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1.8 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0, 200.0, 210.0, 220.0, 230.0, 240.0, 250.0, 260.0, 270.0, 280.0, 290.0, 300.0, 310.0, 320.0, 330.0, 340.0, 350.0, 360.0, 0.0 ]
+"values": [ 0.0, 360.0 ]
 }
 
-[sub_resource type="Animation" id=33]
-resource_name = "idle"
-
 [sub_resource type="Animation" id=6]
-resource_name = "take_damage"
-length = 1.05
+resource_name = "idle"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0 ), Vector2( 1, 1 ), Vector2( 0, 1 ), Vector2( 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -99,7 +112,11 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 0.945098, 1, 0, 0.45098 ), Color( 0, 0.0862745, 1, 1 ), Color( 0.219608, 1, 0, 0.462745 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=46]
+resource_name = "take_damage_base"
+length = 0.6
+
+[sub_resource type="Animation" id=8]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -115,126 +132,116 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=34]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "death"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "helicopter"
-
-[sub_resource type="AnimationNodeAdd2" id=10]
-
-[sub_resource type="AnimationNodeAnimation" id=11]
-animation = "take_damage"
-
-[sub_resource type="AnimationNodeAnimation" id=12]
-animation = "helicopter"
-
-[sub_resource type="AnimationNodeBlendTree" id=13]
-graph_offset = Vector2( 0, 48.75 )
-nodes/Add2/node = SubResource( 10 )
-nodes/Add2/position = Vector2( 760, 60 )
-nodes/Animation/node = SubResource( 12 )
-nodes/Animation/position = Vector2( 500, 40 )
-"nodes/Animation 2/node" = SubResource( 11 )
-"nodes/Animation 2/position" = Vector2( 500, 160 )
-nodes/output/position = Vector2( 1000, 60 )
-node_connections = [ "output", 0, "Add2", "Add2", 0, "Animation 2", "Add2", 1, "Animation" ]
-
-[sub_resource type="AnimationNodeAnimation" id=35]
-animation = "idle"
-
-[sub_resource type="AnimationNodeAnimation" id=36]
-animation = "take_damage"
-
-[sub_resource type="AnimationNodeAdd2" id=14]
 
 [sub_resource type="AnimationNodeAnimation" id=15]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAdd2" id=16]
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
 animation = "take_damage"
 
-[sub_resource type="AnimationNodeAnimation" id=16]
+[sub_resource type="AnimationNodeBlendTree" id=19]
+"nodes/Add2 2/node" = SubResource( 16 )
+"nodes/Add2 2/position" = Vector2( 560, 0 )
+nodes/Animation/node = SubResource( 18 )
+nodes/Animation/position = Vector2( 360, 20 )
+"nodes/Animation 2/node" = SubResource( 17 )
+"nodes/Animation 2/position" = Vector2( 360, 140 )
+nodes/output/position = Vector2( 760, 20 )
+node_connections = [ "output", 0, "Add2 2", "Add2 2", 0, "Animation", "Add2 2", 1, "Animation 2" ]
+
+[sub_resource type="AnimationNodeAdd2" id=20]
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "take_damage"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
 animation = "walk"
 
-[sub_resource type="AnimationNodeBlendTree" id=17]
-graph_offset = Vector2( -84.1667, -25.2705 )
-nodes/Add2/node = SubResource( 14 )
+[sub_resource type="AnimationNodeBlendTree" id=23]
+graph_offset = Vector2( -84.1667, 21.5492 )
+nodes/Add2/node = SubResource( 20 )
 nodes/Add2/position = Vector2( 620, 40 )
-nodes/Animation/node = SubResource( 16 )
-nodes/Animation/position = Vector2( 400, 0 )
-"nodes/Animation 2/node" = SubResource( 15 )
+nodes/Animation/node = SubResource( 22 )
+nodes/Animation/position = Vector2( 380, 0 )
+"nodes/Animation 2/node" = SubResource( 21 )
 "nodes/Animation 2/position" = Vector2( 380, 120 )
 nodes/output/position = Vector2( 840, 40 )
 node_connections = [ "output", 0, "Add2", "Add2", 0, "Animation 2", "Add2", 1, "Animation" ]
 
-[sub_resource type="AnimationNodeAnimation" id=18]
+[sub_resource type="AnimationNodeAnimation" id=24]
 animation = "walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=37]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=38]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=39]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=40]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=41]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=42]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=43]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=44]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=45]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=46]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=47]
-
-[sub_resource type="AnimationNodeStateMachine" id=27]
-states/death/node = SubResource( 34 )
+[sub_resource type="AnimationNodeStateMachine" id=44]
+states/death/node = SubResource( 9 )
 states/death/position = Vector2( 735.847, 148.725 )
-states/helicopter/node = SubResource( 9 )
+states/helicopter/node = SubResource( 10 )
 states/helicopter/position = Vector2( 350, 313 )
-states/helicopter_damage/node = SubResource( 13 )
-states/helicopter_damage/position = Vector2( 778, 313 )
-states/idle/node = SubResource( 35 )
+states/idle/node = SubResource( 15 )
 states/idle/position = Vector2( 588.847, -20.6535 )
-states/take_damage/node = SubResource( 36 )
-states/take_damage/position = Vector2( 842.847, -3.57818 )
-states/take_damage_walk/node = SubResource( 17 )
+states/take_damage/node = SubResource( 19 )
+states/take_damage/position = Vector2( 855.635, -4.93599 )
+states/take_damage_walk/node = SubResource( 23 )
 states/take_damage_walk/position = Vector2( 134, 125 )
-states/walk/node = SubResource( 18 )
+states/walk/node = SubResource( 24 )
 states/walk/position = Vector2( 350, -39 )
-transitions = [ "walk", "take_damage_walk", SubResource( 19 ), "take_damage_walk", "walk", SubResource( 20 ), "take_damage_walk", "helicopter", SubResource( 21 ), "helicopter", "walk", SubResource( 22 ), "walk", "helicopter", SubResource( 23 ), "helicopter", "helicopter_damage", SubResource( 29 ), "helicopter_damage", "helicopter", SubResource( 30 ), "helicopter_damage", "walk", SubResource( 32 ), "idle", "walk", SubResource( 37 ), "walk", "idle", SubResource( 38 ), "idle", "take_damage", SubResource( 39 ), "take_damage", "idle", SubResource( 40 ), "take_damage_walk", "idle", SubResource( 41 ), "walk", "death", SubResource( 42 ), "idle", "death", SubResource( 43 ), "take_damage", "death", SubResource( 44 ), "helicopter_damage", "death", SubResource( 45 ), "helicopter", "death", SubResource( 46 ), "take_damage_walk", "death", SubResource( 47 ) ]
-graph_offset = Vector2( 45.8467, 104.809 )
+transitions = [ "walk", "take_damage_walk", SubResource( 25 ), "take_damage_walk", "walk", SubResource( 26 ), "take_damage_walk", "helicopter", SubResource( 27 ), "helicopter", "walk", SubResource( 28 ), "walk", "helicopter", SubResource( 29 ), "idle", "walk", SubResource( 33 ), "walk", "idle", SubResource( 34 ), "take_damage_walk", "idle", SubResource( 35 ), "walk", "death", SubResource( 36 ), "idle", "death", SubResource( 37 ), "helicopter", "death", SubResource( 39 ), "take_damage_walk", "death", SubResource( 40 ), "idle", "take_damage", SubResource( 41 ), "take_damage", "idle", SubResource( 42 ), "take_damage", "death", SubResource( 43 ) ]
+graph_offset = Vector2( 118.331, 169.368 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=28]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=45]
 
 [node name="Boss" type="KinematicBody2D"]
+position = Vector2( 0.833327, 1 )
 scale = Vector2( 3, 3 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="RayCast2D3" type="RayCast2D" parent="."]
 position = Vector2( -2.4949, -9.91178 )
@@ -255,7 +262,6 @@ position = Vector2( -0.847397, 1.03973 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 2
-frame = 1
 
 [node name="RobotDash" type="Sprite" parent="."]
 visible = false
@@ -265,18 +271,20 @@ offset = Vector2( 10, 0 )
 
 [node name="RobotOneWeapon" type="Sprite" parent="."]
 position = Vector2( -10.26, 1.04 )
+z_index = 1
 texture = ExtResource( 4 )
 offset = Vector2( 10, 0 )
 
 [node name="weapon_gun" type="Sprite" parent="RobotOneWeapon"]
-position = Vector2( 28.7201, 8.85341 )
-scale = Vector2( 0.520943, 0.660968 )
+position = Vector2( 28.7451, 8.85341 )
+scale = Vector2( 0.39209, 0.660968 )
 z_index = -1
 texture = ExtResource( 5 )
 
 [node name="RobotTwoWeapon" type="Sprite" parent="."]
 visible = false
 position = Vector2( -10.26, 1.04 )
+z_index = 1
 texture = ExtResource( 6 )
 offset = Vector2( 10, 0 )
 
@@ -286,8 +294,22 @@ scale = Vector2( 0.520943, 0.660968 )
 z_index = -1
 texture = ExtResource( 5 )
 
+[node name="weapon_gun_up_direction" type="Sprite" parent="RobotTwoWeapon"]
+visible = false
+position = Vector2( 59.784, -11.951 )
+scale = Vector2( 0.520943, 0.660968 )
+z_index = -1
+texture = ExtResource( 5 )
+
 [node name="weapon_gun_down" type="Sprite" parent="RobotTwoWeapon"]
 position = Vector2( 28.7201, 8.85341 )
+scale = Vector2( 0.520943, 0.660968 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="weapon_gun_down_direction" type="Sprite" parent="RobotTwoWeapon"]
+visible = false
+position = Vector2( 59.969, 8.853 )
 scale = Vector2( 0.520943, 0.660968 )
 z_index = -1
 texture = ExtResource( 5 )
@@ -316,17 +338,17 @@ shape = SubResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/death = SubResource( 4 )
 anims/helicopter = SubResource( 5 )
-anims/idle = SubResource( 33 )
-anims/take_damage = SubResource( 6 )
-anims/walk = SubResource( 7 )
+anims/idle = SubResource( 6 )
+anims/take_damage = SubResource( 7 )
+anims/take_damage_base = SubResource( 46 )
+anims/walk = SubResource( 8 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 27 )
+tree_root = SubResource( 44 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource( 28 )
-parameters/helicopter_damage/Add2/add_amount = 0
-parameters/take_damage_walk/Add2/add_amount = 0
+parameters/playback = SubResource( 45 )
+"parameters/take_damage/Add2 2/add_amount" = 0
+parameters/take_damage_walk/Add2/add_amount = 0.5
 
 [node name="DashDuration" type="Timer" parent="."]
 one_shot = true
@@ -349,8 +371,12 @@ stream = ExtResource( 9 )
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="ReloadHeli" type="Timer" parent="."]
+wait_time = 20.0
 [connection signal="body_entered" from="Visibility" to="." method="_on_Visibility_body_entered"]
 [connection signal="body_exited" from="Visibility" to="." method="_on_Visibility_body_exited"]
 [connection signal="body_entered" from="Dash" to="." method="_on_Dash_body_entered"]
 [connection signal="body_exited" from="Dash" to="." method="_on_Dash_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]

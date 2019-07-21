@@ -49,10 +49,14 @@ var reload = false
 export var dash_distance = 1000
 var module_state = Color(1,1,1)
 var anim_state = 0
+var damage_is_moving = true
+var life_percent
+
 func _ready():
 	add_to_group("enemy")
 	enemy_original_position = global_position
 	emit_signal('life_changed', current_life * 100/max_life)
+	$AnimationTree.active = true
 	playback = $AnimationTree.get("parameters/playback")
 	playback.start("idle")
 #func control(delta):
@@ -65,7 +69,7 @@ func _process(delta):
 	
 	#se o player estiver dentro das duas áreas circulares, ativar
 	if player_is_visible and is_player:
-		var life_percent = current_life * 100/max_life
+		life_percent = current_life * 100/max_life
 		is_original_position = false
 			
 		path_navigation = navigation.get_simple_path(global_position, player.global_position, true)
@@ -90,13 +94,15 @@ func _process(delta):
 				
 			if life_percent > 75:
 				if is_in_action:
-					modulate = module_state
+					pass
+					#modulate = module_state
 			elif life_percent > 50:
-				module_state = Color(0, 1, 0.929412)
-				if is_in_action:
-					modulate = module_state
+				#module_state = Color(0, 1, 0.929412)
+				#if is_in_action:
+					#modulate = module_state
 				#tempo de espera entre cada dash
 				$DashCD.wait_time = 10
+				$ReloadTimer.wait_time = 0.4
 				#tempo de espera para iniciar o dash
 				pre_dash_time = 0.6
 				#distancia do dash
@@ -105,23 +111,28 @@ func _process(delta):
 				max_speed = 130
 			
 			elif life_percent > 25:
-				module_state = Color(1, 0.654902, 0)
-				if is_in_action:
-					modulate = module_state
+				$RobotOneWeapon.hide()
+				$RobotTwoWeapon.show()
+				#module_state = Color(1, 0.654902, 0)
+				#if is_in_action:
+					#modulate = module_state
 				$DashCD.wait_time = 6
+				$ReloadTimer.wait_time = 0.3
 				pre_dash_time = 0.4
 				dash_distance = 1500
 				max_speed = 150
 			
 			elif life_percent < 25:
+				playback.travel("helicopter")
+				$ReloadTimer.wait_time = 0.1
 				module_state = Color(1, 0, 0.047059)
-				if is_in_action:
-					modulate = module_state
-				$DashCD.wait_time = 3
+				#if is_in_action:
+				modulate = module_state
+				"""$DashCD.wait_time = 3
 				pre_dash_time = 0.2
 				dash_distance = 2000
 				max_speed = 180
-				damage = 2
+				damage = 2"""
 				
 		#tween.stop_all()ss
 			if not reload:
@@ -136,37 +147,55 @@ func _process(delta):
 				tween.interpolate_property(self, "chase_speed", null, max_speed, 2, Tween.TRANS_QUART, Tween.EASE_IN)
 				tween.start()
 			
-			if not is_dashing:
-				if player_in_dash && $DashCD.time_left <= 0:
-					dash_direction = player.global_position - global_position
-					modulate = Color.green
-					is_dashing = true
-					dash_duration = 0.3
-					is_in_action = false
-					damage = 3
-					anim_state = 0
-					_change_anim()
+			if life_percent > 25:
+				if not is_dashing:
+					if player_in_dash && $DashCD.time_left <= 0:
+						dash_direction = player.global_position - global_position
+						is_dashing = true
+						dash_duration = 0.3
+						is_in_action = false
+						damage = 3
+						anim_state = 0
+						_change_anim()
+						if life_percent > 50:
+							$RobotOneWeapon.hide()
+							$RobotDash.show()
+						else:
+							$RobotTwoWeapon.hide()
+							$RobotDash.show()
+		
+					else:
+						anim_state = 1
+						_change_anim()
+						if life_percent > 50:
+							$RobotOneWeapon.show()
+							$RobotDash.hide()
+						else:
+							$RobotTwoWeapon.show()
+							$RobotDash.hide()
+						damage = 1
+						is_in_action = true
+						move_and_slide(to_player * chase_speed)
 				else:
-					anim_state = 1
-					_change_anim()
-					damage = 1
-					is_in_action = true
-					move_and_slide(to_player * chase_speed)
-			else:
-				pre_dash -= delta
-				if pre_dash <= 0:
-					anim_state = 1
-					_change_anim()
-					move_and_slide(dash_direction.normalized() * dash_distance)
-					dash_duration -= delta
-					if dash_duration <= 0:
+					pre_dash -= delta
+					if pre_dash <= 0:
+						anim_state = 1
+						_change_anim()
+						move_and_slide(dash_direction.normalized() * dash_distance)
+						dash_duration -= delta
+						if dash_duration <= 0:
+							if life_percent > 50:
+								$RobotOneWeapon.show()
+								$RobotDash.hide()
+							else:
+								$RobotTwoWeapon.show()
+								$RobotDash.hide()
 							is_dashing = false
-							modulate = module_state
 							pre_dash = pre_dash_time
 							$DashCD.start()
-			is_original_position = false	
+				is_original_position = false	
 	else:
-		module_state = Color(1, 1, 1)
+		modulate = Color(1, 1, 1)
 		stop_counter = 2
 			
 	if state == 1:
@@ -224,12 +253,20 @@ func _on_Visibility_body_exited(body):
 		player_is_visible = false
 		is_player = false
 		state = 1
-
+		
 #função pra tomar DANU
 func _take_damage(damage):
+	print(current_life)
+	if anim_state == 1 and life_percent > 25:
+		anim_state = 3
+		damage_is_moving = true
+		_change_anim()
+	elif anim_state == 0 and life_percent > 25:
+		anim_state = 2
+		damage_is_moving = false
+		_change_anim()
 	current_life -= damage
 	_life_changed()
-	playback.travel("take_damage")
 	$hit.play()
 	if current_life <=0:
 		playback.travel("death")
@@ -252,11 +289,16 @@ func reload():
 	$ReloadTimer.start()
 
 func _enemy_shoot():
-	emit_signal('enemy_shoot', Bullet, global_position, player.global_position - global_position)
+	emit_signal('enemy_shoot', Bullet, $RobotOneWeapon/weapon_gun.global_position, player.global_position - global_position)
 
 func _enemy_dual_shoot():
-	emit_signal('enemy_shoot', Bullet, global_position, player.global_position - global_position)
-	emit_signal('enemy_shoot', Bullet, global_position, player.global_position - global_position)
+	if life_percent > 25:
+		emit_signal('enemy_shoot', Bullet,  $RobotTwoWeapon/weapon_gun_down.global_position, player.global_position - global_position)
+		emit_signal('enemy_shoot', Bullet, $RobotTwoWeapon/weapon_gun_up.global_position, player.global_position - global_position)
+	else:
+		#ajustar aqui pro tiro ir em frente e não na direção do player
+		emit_signal('enemy_shoot', Bullet,  $RobotTwoWeapon/weapon_gun_down.global_position, $RobotTwoWeapon/weapon_gun_up_direction.global_position - global_position)
+		emit_signal('enemy_shoot', Bullet, $RobotTwoWeapon/weapon_gun_up.global_position, $RobotTwoWeapon/weapon_gun_down_direction.global_position - global_position)
 
 func _on_ReloadTimer_timeout():
 	reload = false
@@ -276,3 +318,11 @@ func _change_anim():
 		playback.travel("helicoper")
 	elif anim_state == 6:
 		playback.travel("helicoper_damage")
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "take_damage":
+		if damage_is_moving:
+			anim_state = 3
+		else:
+			anim_state = 2
+	_change_anim()
