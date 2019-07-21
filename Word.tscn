@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://Script/Map.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/tilesheet_complete.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://EnemyAreaVert.tscn" type="PackedScene" id=14]
 [ext_resource path="res://EnemyAreaHor.tscn" type="PackedScene" id=15]
 [ext_resource path="res://EnemyAreaCirc.tscn" type="PackedScene" id=16]
+[ext_resource path="res://bossArea.tscn" type="PackedScene" id=17]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 14.9399, 12.9192, 51.1089, 12.5174, 51.5107, 51.4995, 14.538, 51.0976 )
@@ -912,6 +913,9 @@ position = Vector2( 5022.33, 3408.53 )
 
 [node name="EnemyAreaCirc4" parent="." instance=ExtResource( 16 )]
 position = Vector2( 5613.27, 232.163 )
+
+[node name="BossArea" parent="." instance=ExtResource( 17 )]
+position = Vector2( 548.886, 1072.66 )
 [connection signal="big_shoot" from="Player" to="." method="_on_Player_big_shoot"]
 [connection signal="life_changed" from="Player" to="HUD" method="_on_Player_life_changed"]
 [connection signal="shoot" from="Player" to="." method="_on_Player_shoot"]
@@ -923,3 +927,6 @@ position = Vector2( 5613.27, 232.163 )
 [connection signal="body_entered" from="bookIgni" to="Player" method="_on_bookIgni_body_entered"]
 [connection signal="body_entered" from="BookEnergy" to="Player" method="_on_BookEnergy_body_entered"]
 [connection signal="body_entered" from="BookEnergy2" to="Player" method="_on_BookEnergy_body_entered"]
+[connection signal="enemy_shoot" from="BossArea/Path2D/PathFollow2D/Boss" to="." method="_on_Boss_enemy_shoot"]
+
+[editable path="BossArea"]

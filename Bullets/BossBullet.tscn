@@ -1,0 +1,84 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Script/BossBullet.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame9-1.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame9-2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame9-3.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame10-1.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame10-2.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame10-3.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame11-1.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame11-2.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Bullet/light_turret_prototype.fx.flame/flame11-3.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/tile_187.png" type="Texture" id=11]
+[ext_resource path="res://assets/Music/mini_magic_ball.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/Music/Canom_Ball.wav" type="AudioStream" id=13]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "bullet",
+"speed": 8.0
+} ]
+
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( 2.02532, 13.1857 )
+b = Vector2( 27.7682, 1.72601 )
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( -15.9117, -12.0589 )
+b = Vector2( 28.5986, 0.397343 )
+
+[sub_resource type="SegmentShape2D" id=4]
+a = Vector2( -22.555, 11.0267 )
+b = Vector2( 3.1879, 13.0197 )
+
+[sub_resource type="SegmentShape2D" id=5]
+a = Vector2( -17.0742, -13.8858 )
+b = Vector2( -22.0567, 10.8606 )
+
+[node name="BossBullet" type="Area2D"]
+position = Vector2( 0, 0.407814 )
+collision_layer = 8
+collision_mask = 3
+script = ExtResource( 1 )
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "bullet"
+frame = 1
+playing = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -6.31116, 2.32517 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2.19335, 0.147388 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( -2.19335, 0.147388 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2( -2.19335, 0.147388 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2( -2.19335, 0.147388 )
+shape = SubResource( 5 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="MiniBallSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+
+[node name="CanomBallSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 13 )
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]

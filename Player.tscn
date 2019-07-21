@@ -8,11 +8,11 @@
 [ext_resource path="res://assets/Music/396799__scorpion67890__male-death-2.ogg" type="AudioStream" id=6]
 [ext_resource path="res://assets/Music/173126__replix__death-sound-male.wav" type="AudioStream" id=7]
 
-[sub_resource type="CapsuleShape2D" id=25]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 11.0519
 height = 21.5558
 
-[sub_resource type="SpriteFrames" id=26]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [  ],
 "loop": true,
@@ -20,7 +20,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=3]
 resource_name = "death"
 length = 0.8
 tracks/0/type = "value"
@@ -50,10 +50,10 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="Animation" id=4]
 loop = true
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=5]
 resource_name = "take_damage"
 length = 2.5
 tracks/0/type = "value"
@@ -93,7 +93,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 100, 0 ), Vector2( 0, 100 ), Vector2( -100, 0 ), Vector2( 0, -100 ), Vector2( 100, 0 ), Vector2( 0, 0 ), Vector2( 0, 100 ), Vector2( -100, 0 ), Vector2( 0, -100 ), Vector2( 100, 0 ), Vector2( 0, 100 ), Vector2( -100, 0 ), Vector2( 0, -100 ), Vector2( 100, 0 ), Vector2( 0, 100 ), Vector2( -100, 0 ), Vector2( 0, -100 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=30]
+[sub_resource type="Animation" id=6]
 length = 1.25
 loop = true
 tracks/0/type = "value"
@@ -121,7 +121,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=7]
 resource_name = "walk no Looping"
 length = 2.5
 tracks/0/type = "value"
@@ -149,79 +149,79 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=32]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "death"
 
-[sub_resource type="AnimationNodeAnimation" id=33]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "idle"
 
-[sub_resource type="AnimationNodeBlendTree" id=34]
-nodes/Animation/node = SubResource( 33 )
+[sub_resource type="AnimationNodeBlendTree" id=10]
+nodes/Animation/node = SubResource( 9 )
 nodes/Animation/position = Vector2( 140, 80 )
 node_connections = [ "output", 0, "Animation" ]
 
-[sub_resource type="AnimationNodeAnimation" id=35]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "take_damage"
 
-[sub_resource type="AnimationNodeAdd2" id=21]
+[sub_resource type="AnimationNodeAdd2" id=12]
 
-[sub_resource type="AnimationNodeAnimation" id=22]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "take_damage"
 
-[sub_resource type="AnimationNodeAnimation" id=23]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "walk no Looping"
 
-[sub_resource type="AnimationNodeBlendTree" id=24]
+[sub_resource type="AnimationNodeBlendTree" id=15]
 graph_offset = Vector2( -85.42, 0 )
-nodes/Add2/node = SubResource( 21 )
+nodes/Add2/node = SubResource( 12 )
 nodes/Add2/position = Vector2( 440, 80 )
 nodes/output/position = Vector2( 660, 120 )
-nodes/take_damage/node = SubResource( 22 )
+nodes/take_damage/node = SubResource( 13 )
 nodes/take_damage/position = Vector2( 120, 80 )
-nodes/walk/node = SubResource( 23 )
+nodes/walk/node = SubResource( 14 )
 nodes/walk/position = Vector2( 140, 200 )
 node_connections = [ "output", 0, "Add2", "Add2", 0, "take_damage", "Add2", 1, "walk" ]
 
-[sub_resource type="AnimationNodeAnimation" id=36]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=44]
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=47]
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=45]
-states/death/node = SubResource( 32 )
+[sub_resource type="AnimationNodeStateMachine" id=26]
+states/death/node = SubResource( 8 )
 states/death/position = Vector2( 182, 58 )
-states/idle/node = SubResource( 34 )
+states/idle/node = SubResource( 10 )
 states/idle/position = Vector2( 398, 144 )
-states/take_damage/node = SubResource( 35 )
+states/take_damage/node = SubResource( 11 )
 states/take_damage/position = Vector2( 698, 144 )
-states/walk/node = SubResource( 36 )
+states/walk/node = SubResource( 16 )
 states/walk/position = Vector2( 398, 51 )
-states/walk+damage/node = SubResource( 24 )
+states/walk+damage/node = SubResource( 15 )
 states/walk+damage/position = Vector2( 698, 51 )
-transitions = [ "idle", "walk", SubResource( 37 ), "walk", "idle", SubResource( 38 ), "idle", "death", SubResource( 39 ), "walk", "death", SubResource( 40 ), "idle", "take_damage", SubResource( 41 ), "take_damage", "idle", SubResource( 42 ), "walk", "walk+damage", SubResource( 43 ), "walk+damage", "walk", SubResource( 44 ), "take_damage", "walk", SubResource( 47 ) ]
+transitions = [ "idle", "walk", SubResource( 17 ), "walk", "idle", SubResource( 18 ), "idle", "death", SubResource( 19 ), "walk", "death", SubResource( 20 ), "idle", "take_damage", SubResource( 21 ), "take_damage", "idle", SubResource( 22 ), "walk", "walk+damage", SubResource( 23 ), "walk+damage", "walk", SubResource( 24 ), "take_damage", "walk", SubResource( 25 ) ]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=46]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=27]
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -241,7 +241,7 @@ frame = 11
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -1, 0 )
-shape = SubResource( 25 )
+shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -252,7 +252,7 @@ smoothing_speed = 3.5
 visible = false
 position = Vector2( 0.342884, 0.214636 )
 scale = Vector2( 0.966463, 0.986585 )
-frames = SubResource( 26 )
+frames = SubResource( 2 )
 animation = "idle"
 flip_h = true
 
@@ -281,11 +281,11 @@ visible = false
 position = Vector2( -133.518, -107.773 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/death = SubResource( 27 )
-anims/idle = SubResource( 28 )
-anims/take_damage = SubResource( 29 )
-anims/walk = SubResource( 30 )
-"anims/walk no Looping" = SubResource( 31 )
+anims/death = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/take_damage = SubResource( 5 )
+anims/walk = SubResource( 6 )
+"anims/walk no Looping" = SubResource( 7 )
 
 [node name="walkAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
@@ -298,9 +298,9 @@ wait_time = 2.5
 one_shot = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 45 )
+tree_root = SubResource( 26 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 46 )
+parameters/playback = SubResource( 27 )
 parameters/walk+damage/Add2/add_amount = 1.0
 
 [node name="take_damage" type="AudioStreamPlayer2D" parent="."]

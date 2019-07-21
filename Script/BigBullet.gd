@@ -12,7 +12,7 @@ func _start(_position, _direction):
 	velocity = _direction.normalized()
 	$Lifetime.start()
 	$CanomBallSound.play()
-	tween.interpolate_property(self, "speed", speed, 0, 0.45, Tween.TRANS_QUART, Tween.EASE_IN)
+	tween.interpolate_property(self, "speed", speed, 0, 1, Tween.TRANS_QUART, Tween.EASE_IN)
 	tween.start()
 	modulate = Color.plum
 
