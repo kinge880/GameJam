@@ -42,6 +42,9 @@ var book_big_atk_obted = false
 var not_damaged = true
 var playback
 var event_global
+
+var dead = false
+
 func _ready():
 	yield(get_tree(), "idle_frame")
 	#passa a instancia de player a todos no grupo "enemy" que possuem a função "_set_player"
@@ -53,6 +56,9 @@ func _ready():
 	playback.start("idle")
 	
 func _process(delta):
+	if dead:
+		return
+	
 	$barrier.look_at(get_global_mouse_position())
 	
 	if Input.is_action_just_pressed("dash") and current_stamina >= stamina_cost:
@@ -179,6 +185,9 @@ func _take_damage(damage):
 	if current_life <=0:
 		playback.travel("death")
 		#$AnimationPlayer.play("death")
+		$DeathDelayTimer.start()
+		dead = true
+		yield($DeathDelayTimer, "timeout")
 		_death()
 
 func _input(event):

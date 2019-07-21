@@ -10,6 +10,9 @@ func _on_TrapArea_body_entered(body):
 	$Polygon2D.visible = true
 	$ExplosionTimer.start()
 	yield($ExplosionTimer, "timeout")
+	$Explosion.emitting = true
+	$ParticlesTimer.start()
+	yield($ParticlesTimer, "timeout")
 	if player_inside_effect:
 		body._take_damage(damage)
 	monitoring = false
