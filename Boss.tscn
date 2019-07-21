@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Boss.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemy/boss/Robot 1/robotBase.png" type="Texture" id=2]
@@ -80,7 +80,10 @@ tracks/1/keys = {
 "values": [ 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0, 200.0, 210.0, 220.0, 230.0, 240.0, 250.0, 260.0, 270.0, 280.0, 290.0, 300.0, 310.0, 320.0, 330.0, 340.0, 350.0, 360.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=33]
+resource_name = "idle"
+
+[sub_resource type="Animation" id=6]
 resource_name = "take_damage"
 length = 1.05
 tracks/0/type = "value"
@@ -112,7 +115,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=34]
 animation = "death"
 
 [sub_resource type="AnimationNodeAnimation" id=9]
@@ -127,7 +130,7 @@ animation = "take_damage"
 animation = "helicopter"
 
 [sub_resource type="AnimationNodeBlendTree" id=13]
-graph_offset = Vector2( 67.2746, 24.375 )
+graph_offset = Vector2( 0, 48.75 )
 nodes/Add2/node = SubResource( 10 )
 nodes/Add2/position = Vector2( 760, 60 )
 nodes/Animation/node = SubResource( 12 )
@@ -135,7 +138,13 @@ nodes/Animation/position = Vector2( 500, 40 )
 "nodes/Animation 2/node" = SubResource( 11 )
 "nodes/Animation 2/position" = Vector2( 500, 160 )
 nodes/output/position = Vector2( 1000, 60 )
-node_connections = [ "output", 0, "Add2" ]
+node_connections = [ "output", 0, "Add2", "Add2", 0, "Animation 2", "Add2", 1, "Animation" ]
+
+[sub_resource type="AnimationNodeAnimation" id=35]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=36]
+animation = "take_damage"
 
 [sub_resource type="AnimationNodeAdd2" id=14]
 
@@ -146,7 +155,7 @@ animation = "take_damage"
 animation = "walk"
 
 [sub_resource type="AnimationNodeBlendTree" id=17]
-graph_offset = Vector2( -84.1667, 23.4795 )
+graph_offset = Vector2( -84.1667, -25.2705 )
 nodes/Add2/node = SubResource( 14 )
 nodes/Add2/position = Vector2( 620, 40 )
 nodes/Animation/node = SubResource( 16 )
@@ -171,25 +180,53 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=23]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=44]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=46]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=47]
 
 [sub_resource type="AnimationNodeStateMachine" id=27]
-states/death/node = SubResource( 8 )
-states/death/position = Vector2( 627, 113 )
+states/death/node = SubResource( 34 )
+states/death/position = Vector2( 735.847, 148.725 )
 states/helicopter/node = SubResource( 9 )
-states/helicopter/position = Vector2( 350, 255 )
-states/helicopter_dagame/node = SubResource( 13 )
-states/helicopter_dagame/position = Vector2( 647, 255 )
-states/take_damage/node = SubResource( 17 )
-states/take_damage/position = Vector2( 134, 125 )
+states/helicopter/position = Vector2( 350, 313 )
+states/helicopter_damage/node = SubResource( 13 )
+states/helicopter_damage/position = Vector2( 778, 313 )
+states/idle/node = SubResource( 35 )
+states/idle/position = Vector2( 588.847, -20.6535 )
+states/take_damage/node = SubResource( 36 )
+states/take_damage/position = Vector2( 842.847, -3.57818 )
+states/take_damage_walk/node = SubResource( 17 )
+states/take_damage_walk/position = Vector2( 134, 125 )
 states/walk/node = SubResource( 18 )
-states/walk/position = Vector2( 350, 39 )
-transitions = [ "walk", "take_damage", SubResource( 19 ), "take_damage", "walk", SubResource( 20 ), "take_damage", "helicopter", SubResource( 21 ), "helicopter", "walk", SubResource( 22 ), "walk", "helicopter", SubResource( 23 ), "walk", "death", SubResource( 24 ), "helicopter", "death", SubResource( 25 ), "take_damage", "death", SubResource( 26 ) ]
-graph_offset = Vector2( 45.8467, 183.493 )
+states/walk/position = Vector2( 350, -39 )
+transitions = [ "walk", "take_damage_walk", SubResource( 19 ), "take_damage_walk", "walk", SubResource( 20 ), "take_damage_walk", "helicopter", SubResource( 21 ), "helicopter", "walk", SubResource( 22 ), "walk", "helicopter", SubResource( 23 ), "helicopter", "helicopter_damage", SubResource( 29 ), "helicopter_damage", "helicopter", SubResource( 30 ), "helicopter_damage", "walk", SubResource( 32 ), "idle", "walk", SubResource( 37 ), "walk", "idle", SubResource( 38 ), "idle", "take_damage", SubResource( 39 ), "take_damage", "idle", SubResource( 40 ), "take_damage_walk", "idle", SubResource( 41 ), "walk", "death", SubResource( 42 ), "idle", "death", SubResource( 43 ), "take_damage", "death", SubResource( 44 ), "helicopter_damage", "death", SubResource( 45 ), "helicopter", "death", SubResource( 46 ), "take_damage_walk", "death", SubResource( 47 ) ]
+graph_offset = Vector2( 45.8467, 104.809 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=28]
 
@@ -218,6 +255,7 @@ position = Vector2( -0.847397, 1.03973 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 2
+frame = 1
 
 [node name="RobotDash" type="Sprite" parent="."]
 visible = false
@@ -226,9 +264,7 @@ texture = ExtResource( 3 )
 offset = Vector2( 10, 0 )
 
 [node name="RobotOneWeapon" type="Sprite" parent="."]
-visible = false
 position = Vector2( -10.26, 1.04 )
-rotation = 1.18716
 texture = ExtResource( 4 )
 offset = Vector2( 10, 0 )
 
@@ -239,8 +275,8 @@ z_index = -1
 texture = ExtResource( 5 )
 
 [node name="RobotTwoWeapon" type="Sprite" parent="."]
+visible = false
 position = Vector2( -10.26, 1.04 )
-rotation = 1.18716
 texture = ExtResource( 6 )
 offset = Vector2( 10, 0 )
 
@@ -280,15 +316,17 @@ shape = SubResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/death = SubResource( 4 )
 anims/helicopter = SubResource( 5 )
-anims/take_damage = SubResource( 29 )
+anims/idle = SubResource( 33 )
+anims/take_damage = SubResource( 6 )
 anims/walk = SubResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 27 )
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/playback = SubResource( 28 )
-parameters/helicopter_dagame/Add2/add_amount = 1.0
-parameters/take_damage/Add2/add_amount = 0
+parameters/helicopter_damage/Add2/add_amount = 0
+parameters/take_damage_walk/Add2/add_amount = 0
 
 [node name="DashDuration" type="Timer" parent="."]
 one_shot = true

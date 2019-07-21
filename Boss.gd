@@ -48,6 +48,7 @@ export var stop_counter = 2
 var reload = false
 export var dash_distance = 1000
 var module_state = Color(1,1,1)
+var anim_state = 0
 func _ready():
 	add_to_group("enemy")
 	enemy_original_position = global_position
@@ -85,7 +86,8 @@ func _process(delta):
 		#rotation = Util.lerp_angle(rotation, to_player.angle(), 0.1)
 		#faz o movimentos
 		if stop_counter <= 0:
-			
+			_change_anim()
+				
 			if life_percent > 75:
 				if is_in_action:
 					modulate = module_state
@@ -142,13 +144,19 @@ func _process(delta):
 					dash_duration = 0.3
 					is_in_action = false
 					damage = 3
+					anim_state = 0
+					_change_anim()
 				else:
+					anim_state = 1
+					_change_anim()
 					damage = 1
 					is_in_action = true
 					move_and_slide(to_player * chase_speed)
 			else:
 				pre_dash -= delta
 				if pre_dash <= 0:
+					anim_state = 1
+					_change_anim()
 					move_and_slide(dash_direction.normalized() * dash_distance)
 					dash_duration -= delta
 					if dash_duration <= 0:
@@ -252,3 +260,19 @@ func _enemy_dual_shoot():
 
 func _on_ReloadTimer_timeout():
 	reload = false
+
+func _change_anim():
+	if anim_state == 0:
+		playback.travel("idle")
+	elif anim_state == 1:
+		playback.travel("walk")
+	elif anim_state == 2:
+		playback.travel("take_damage")
+	elif anim_state == 3:
+		playback.travel("take_damage_walk")
+	elif anim_state == 4:
+		playback.travel("death")
+	elif anim_state == 5:
+		playback.travel("helicoper")
+	elif anim_state == 6:
+		playback.travel("helicoper_damage")
